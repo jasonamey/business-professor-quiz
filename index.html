@@ -1,0 +1,1302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>Business Faculty Appointments</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap">
+<style>
+/* Layout: one centered reading column, one question per screen; results and review are long single-column documents */
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --ink:#15202E; --muted:#566173; --line:#D8DEE6;
+  --accent:#1F4E79; --accent-ink:#FFFFFF; --accent-soft:#E3EBF4;
+  --side-a:#1D6656; --side-a-soft:#E0F0EA; --side-b:#8A5316; --side-b-soft:#F5E9DA;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-display:"Newsreader",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10151C; --surface:#18202A; --ink:#E6EBF1; --muted:#9BA7B7; --line:#2C3644;
+  --accent:#86B4E0; --accent-ink:#0D1620; --accent-soft:#1D2A39;
+  --side-a:#7BC6B1; --side-a-soft:#17302A; --side-b:#E3B274; --side-b-soft:#33281A;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#10151C; --surface:#18202A; --ink:#E6EBF1; --muted:#9BA7B7; --line:#2C3644;
+  --accent:#86B4E0; --accent-ink:#0D1620; --accent-soft:#1D2A39;
+  --side-a:#7BC6B1; --side-a-soft:#17302A; --side-b:#E3B274; --side-b-soft:#33281A;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55}
+.wrap{max-width:46rem;margin:0 auto;padding-block:28px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:24px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px}
+.brand{font-size:.75rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{text-wrap:balance;margin:0}
+h1{font-family:var(--font-display);font-weight:500;font-size:2.4rem;line-height:1.12}
+h2{font-family:var(--font-display);font-weight:500;font-size:1.65rem;line-height:1.25}
+h3{font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1:focus,h2:focus{outline:none}
+p{margin:0}
+.lede{font-size:1.1rem;color:var(--muted);max-width:40rem}
+.stack{display:flex;flex-direction:column;gap:12px}
+.btn{font:inherit;font-weight:600;font-size:.95rem;border-radius:8px;padding:11px 20px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn[disabled]{opacity:.4;cursor:not-allowed;filter:none}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.small{padding:6px 12px;font-size:.82rem;font-weight:500}
+.linkish{font:inherit;font-size:.85rem;background:none;border:none;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px 0}
+.linkish:hover{color:var(--ink)}
+button:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.steps li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.steps b{display:block}
+.steps .n{font-family:var(--font-display);font-size:1.4rem;line-height:1;color:var(--accent);width:1.4rem}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+/* quiz */
+.qhead{display:flex;flex-direction:column;gap:10px}
+.parts{display:flex;gap:6px;flex-wrap:wrap;font-size:.78rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.parts span{padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.parts span.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.parts span.done{color:var(--accent);border-color:var(--accent)}
+.prog{display:flex;align-items:center;gap:12px;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .25s}
+.bg{color:var(--muted);font-size:1rem;max-width:42rem}
+.bg-label{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+fieldset{border:none;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:12px}
+legend{font-weight:600;font-size:1rem;padding:0;margin-bottom:12px}
+.sides{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.side{border-radius:10px;padding:14px 16px;border:1px solid;min-width:0}
+.side .tag{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;display:block;margin-bottom:4px}
+.side.a{background:var(--side-a-soft);border-color:var(--side-a)}
+.side.a .tag{color:var(--side-a)}
+.side.b{background:var(--side-b-soft);border-color:var(--side-b)}
+.side.b .tag{color:var(--side-b)}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.seg{position:relative;display:block;cursor:pointer}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg span{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:56px;padding:6px 4px;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:.82rem;line-height:1.25;color:var(--ink);transition:background .12s,border-color .12s}
+.seg span b{font-size:1rem}
+.seg:hover span{border-color:var(--muted)}
+.seg input:focus-visible + span{outline:3px solid var(--accent);outline-offset:2px}
+.seg.a input:checked + span{background:var(--side-a);border-color:var(--side-a);color:var(--surface)}
+.seg.b input:checked + span{background:var(--side-b);border-color:var(--side-b);color:var(--surface)}
+.seg.mid input:checked + span,.seg.int input:checked + span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.qnav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px}
+.hint{font-size:.85rem;color:var(--muted)}
+
+/* results */
+.appointment{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px}
+.appointment-inner{border:1px solid var(--accent);border-radius:8px;padding:28px 24px;display:flex;flex-direction:column;gap:6px;text-align:center;align-items:center}
+.appointment .kicker{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.appointment h1{font-size:2.3rem}
+.appointment .spec{font-family:var(--font-display);font-size:1.35rem;font-style:italic;color:var(--ink)}
+.appointment .basis{font-size:.85rem;color:var(--muted);margin-top:8px}
+.agenda{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.agenda li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.agenda .rq{font-family:var(--font-display);font-size:1.15rem;line-height:1.35}
+.agenda .pos{font-size:.92rem}
+.agenda .pos em{font-style:normal;font-weight:600}
+.meta{display:flex;gap:8px;flex-wrap:wrap;font-size:.78rem}
+.pill{padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-variant-numeric:tabular-nums}
+.pill.a{color:var(--side-a);border-color:var(--side-a)}
+.pill.b{color:var(--side-b);border-color:var(--side-b)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--accent-soft);color:var(--ink);border-radius:6px;padding:4px 10px;font-size:.88rem}
+.bars{display:flex;flex-direction:column;gap:8px}
+.brow{display:grid;grid-template-columns:minmax(0,13rem) 1fr 2.6rem;gap:10px;align-items:center;font-size:.88rem}
+.brow .lbl{min-width:0;overflow-wrap:anywhere}
+.brow .trk{height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.brow .trk i{display:block;height:100%;background:var(--muted);border-radius:5px}
+.brow.win .trk i{background:var(--accent)}
+.brow.win .lbl{font-weight:600}
+.brow .val{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.runner{display:flex;flex-direction:column;gap:4px;padding:14px 0;border-top:1px solid var(--line)}
+.runner:first-child{border-top:none;padding-top:0}
+.runner b{font-size:1rem}
+select{font:inherit;font-size:.95rem;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);max-width:100%}
+
+/* review */
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.rv-field{display:flex;flex-direction:column;gap:20px;scroll-margin-top:16px}
+.rv-field > h2{font-size:2rem;border-bottom:2px solid var(--ink);padding-bottom:6px}
+.rv-sub{display:flex;flex-direction:column;gap:12px}
+.rv-sub > .rv-head{display:flex;flex-direction:column;gap:6px}
+.rv-sub h3.rv-title{font-family:var(--font-display);font-size:1.35rem;letter-spacing:0;text-transform:none;color:var(--ink);font-weight:500}
+.rv-q{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;grid-template-columns:7.5rem 1fr;gap:6px 14px;font-size:.92rem;break-inside:avoid}
+.rv-q dt{font-size:.72rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.rv-q dd{margin:0;min-width:0}
+.rv-q .qid{grid-column:1/-1;font-size:.75rem;font-weight:700;letter-spacing:.08em;color:var(--accent);font-variant-numeric:tabular-nums}
+.rv-q dd.prompt{font-family:var(--font-display);font-size:1.1rem}
+.rv-q dd.pa{color:var(--side-a)}
+.rv-q dd.pb{color:var(--side-b)}
+code{font-size:.9em;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+
+@media (max-width:560px){
+  h1{font-size:1.9rem}
+  h2{font-size:1.4rem}
+  .sides{grid-template-columns:1fr}
+  .seg span{font-size:.74rem;min-height:52px}
+  .brow{grid-template-columns:minmax(0,8rem) 1fr 2.4rem}
+  .rv-q{grid-template-columns:1fr}
+  .rv-q dt{padding-top:6px}
+  .appointment h1{font-size:1.8rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.no-print{display:none!important}body{background:#fff}.rv-q,.agenda li,.panel{border-color:#999}}
+</style>
+
+<div id="app" class="wrap" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   QUESTION BANK — EDIT HERE
+   5 fields × 5 specialties × 5 questions = 125 questions.
+   Each question has:
+     original   – the instructor's wording (shown on results and review pages)
+     question   – the version students see
+     background – context and definitions shown under the question
+     positionA / positionB – the two sides students choose between
+   Question IDs (e.g. "acc-fr-1") come from the order below. If you
+   reorder or remove questions, students with saved progress restart.
+   ===================================================================== */
+const FIELDS = [
+{ id:"acc", name:"Accountancy",
+  about:"Accountancy studies how organizations measure, record, check, and report financial information, and how investors, managers, tax authorities, and investigators use that information.",
+  subfields:[
+  { id:"acc-fr", name:"Financial Reporting",
+    about:"How companies present their financial results to investors, lenders, and the public: what goes into financial statements, how items are measured, and who writes the rules.",
+    terms:["financial statements","GAAP","IFRS","FASB","IASB","intangible assets","fair value accounting","non-GAAP measures","ESG disclosure","ISSB standards"],
+    questions:[
+    { original:"Should intangibles like data, brands, and R&D be capitalized on the balance sheet, or kept off because they're too hard to value reliably?",
+      question:"Should a company's balance sheet list valuable non-physical assets, such as its customer data, its brand, or its research, or leave them off because their value is too hard to pin down?",
+      background:"A balance sheet lists what a company owns (its assets) and what it owes. Physical items like factories and equipment are recorded as assets. Under current U.S. rules, though, most of what a company spends building its own brand or on research and development (R&D) is recorded as an expense in the year it is spent, so it never appears as an asset. “Capitalizing” a cost means recording it as an asset instead. Critics say this makes companies like Google or Pfizer look less valuable on paper than they really are.",
+      positionA:"Record them as assets. Leaving them off hides what modern companies are actually worth.",
+      positionB:"Keep them off. Their values would be estimates, and estimates invite manipulation." },
+    { original:"Is fair-value accounting more informative than historical cost, or does it make volatility worse in a crisis?",
+      question:"Should companies report their assets at today's market value, or at the price they originally paid?",
+      background:"“Historical cost” accounting records an asset at its purchase price. “Fair-value” accounting (also called “mark-to-market”) updates the asset to what it could be sold for today. Fair value is more current. But during the 2008 financial crisis, critics argued that forcing banks to mark their assets down to panic-level prices made their losses look worse and deepened the crisis.",
+      positionA:"Today's market value. Investors need current information, even if the numbers move around.",
+      positionB:"The original price. It is stable, can be verified, and doesn't amplify panics." },
+    { original:"Do non-GAAP metrics (“adjusted EBITDA”) help investors, or mainly let managers flatter results?",
+      question:"When companies publish their own “adjusted” profit figures alongside the official ones, does that help investors or mainly make results look better than they are?",
+      background:"U.S. public companies must report profits using GAAP (Generally Accepted Accounting Principles), the official rulebook. Many also report “non-GAAP” figures such as “adjusted EBITDA”: earnings before interest, taxes, depreciation, and amortization, with certain “one-time” costs removed. Managers say this shows how the core business is performing. Skeptics point out that the costs labeled “one-time” often come back year after year.",
+      positionA:"Helpful. Adjusted figures show how the core business is really performing.",
+      positionB:"Mostly flattering. Managers choose what to leave out, and they tend to leave out the bad news." },
+    { original:"Should sustainability and climate disclosures be mandatory and standardized, or left to the market?",
+      question:"Should companies be required to report their environmental and climate impact in a standard format, or should that be left to each company and its investors?",
+      background:"Many investors want to know a company's carbon emissions and its exposure to climate risks, such as flooding at its factories. The European Union now requires detailed sustainability reporting. In the U.S., a federal climate-disclosure rule was adopted in 2024 and then stalled amid lawsuits and political opposition, while California passed its own requirements. Supporters say a standard format makes companies comparable. Opponents point to the cost and question whether these issues belong in financial reports at all.",
+      positionA:"Mandatory and standardized. Otherwise companies report only what makes them look good.",
+      positionB:"Voluntary. Investors who care can ask for it, without imposing the cost on every company." },
+    { original:"Would one global set of standards (IFRS everywhere) improve comparability, or erase useful local differences?",
+      question:"Should every country use the same set of accounting rules, or is there value in countries keeping their own?",
+      background:"About 140 countries and jurisdictions require IFRS (International Financial Reporting Standards) for public companies. The U.S. uses its own rules, called GAAP. A single global standard would make it easier to compare, say, a German company with an American one. But countries differ in their legal systems, tax rules, and how companies raise money, and some argue that accounting rules should fit local conditions.",
+      positionA:"One global standard. Being able to compare companies across borders matters most.",
+      positionB:"Local rules. Different economies have legitimately different needs." }
+    ]},
+  { id:"acc-au", name:"Auditing",
+    about:"How independent accountants check whether a company's financial statements are accurate, and how to keep those checkers honest and effective.",
+    terms:["external audit","auditor independence","PCAOB","Sarbanes-Oxley Act","Big Four accounting firms","mandatory audit firm rotation","reasonable assurance","audit expectation gap","audit data analytics"],
+    questions:[
+    { original:"Will AI and full-population testing improve audit quality, or create risks auditors can't see?",
+      question:"Will artificial intelligence that can check every single transaction make audits better, or create new risks that auditors can't see?",
+      background:"Auditors have traditionally been unable to check every transaction, so they test a sample and draw conclusions from it. AI and data-analysis tools now make it possible to examine the “full population” of transactions. That could catch more errors. But auditors may come to trust tools they don't fully understand, and an AI system may miss problems it was never designed to recognize.",
+      positionA:"Better audits. Checking everything beats checking a sample.",
+      positionB:"Hidden risks. Auditors could end up relying on tools they don't understand." },
+    { original:"Does mandatory auditor rotation protect independence, or throw away valuable client knowledge?",
+      question:"Should companies be required to switch to a different audit firm every several years?",
+      background:"An auditor is paid by the company it audits. After many years together, critics worry, the auditor becomes too comfortable with management to challenge it. The European Union requires large public companies to change audit firms, generally after 10 years. The U.S. requires only that the lead audit partner change every five years. Opponents argue that a new firm needs years to learn a complex business, and that errors are more common in the first years of a new audit relationship.",
+      positionA:"Require rotation. Fresh eyes protect the auditor's independence.",
+      positionB:"Don't require it. Long relationships build the knowledge needed to spot problems." },
+    { original:"Should audit firms be allowed to sell consulting services to the clients they audit?",
+      question:"Should an accounting firm be allowed to sell consulting services to the same company it audits?",
+      background:"Audit firms also sell advice on technology, taxes, and strategy. When the energy company Enron collapsed in 2001, its auditor, Arthur Andersen, had been earning more from Enron for consulting than for auditing. The Sarbanes-Oxley Act of 2002 banned many kinds of consulting for audit clients, but some services are still allowed, and the large firms still earn a large share of their revenue from non-audit work.",
+      positionA:"Allow it, within limits. Knowing a client well can improve both services.",
+      positionB:"Ban it. A firm can't objectively audit a client it is also trying to sell to." },
+    { original:"Is the Big Four's concentration a quality advantage or a systemic risk?",
+      question:"Is it a strength or a danger that just four firms audit nearly all of the largest companies?",
+      background:"Deloitte, PwC, EY, and KPMG, known as the “Big Four,” audit nearly all of the largest public companies in the U.S. and the U.K. Their size gives them expertise and global reach. But if one of them collapsed, as Arthur Andersen did in 2002, there might not be enough capacity left to audit the world's largest companies, and having so few competitors may reduce pressure to improve.",
+      positionA:"A strength. Only very large firms can audit very large, global companies.",
+      positionB:"A danger. Too few firms means too little competition and too much riding on each one." },
+    { original:"Should auditors be responsible for detecting fraud, or only for giving reasonable assurance on the statements?",
+      question:"Should auditors be held responsible for finding fraud, or only for confirming that the financial statements are reasonably accurate?",
+      background:"Auditors provide “reasonable assurance”: a high, but not absolute, level of confidence that financial statements are free of major errors. Much of the public assumes auditors are fraud detectors. After scandals like Wirecard in 2020, where €1.9 billion in reported cash turned out not to exist, many asked how the auditors missed it. The gap between what the public expects and what auditors actually promise is called the “expectation gap.”",
+      positionA:"Responsible for finding fraud. That is what the public needs auditors to do.",
+      positionB:"Reasonable assurance only. A determined fraudster can fool any outside reviewer." }
+    ]},
+  { id:"acc-tx", name:"Taxation",
+    about:"How governments tax businesses, how businesses plan around taxes, and how tax rules shape investment and behavior.",
+    terms:["corporate income tax","profit shifting","tax havens","OECD Pillar Two","global minimum tax","digital services tax","Tax Cuts and Jobs Act","tax avoidance vs. tax evasion","tax expenditures"],
+    questions:[
+    { original:"Will a global minimum corporate tax end profit shifting, or just move it elsewhere?",
+      question:"Will a worldwide minimum tax on large corporations stop them from moving their profits to low-tax countries?",
+      background:"Multinational companies can legally record profits in countries with low taxes. For example, a company might have an Irish subsidiary own its patents and charge its other subsidiaries fees for using them. This is called “profit shifting.” In 2021, about 140 countries agreed to a 15% global minimum tax on large multinationals (the OECD's “Pillar Two”). The U.S. has not adopted it, and in 2025 it negotiated an exemption for U.S.-based companies.",
+      positionA:"It will largely work. If every country charges at least 15%, shifting profits stops paying off.",
+      positionB:"It will just move the problem. Companies will find new loopholes and countries will compete in other ways." },
+    { original:"Should digital companies be taxed where their users are, or where the company is based?",
+      question:"Should digital companies pay taxes in the countries where their users live, or where the company is based?",
+      background:"Traditional tax rules tax a company where it has a physical presence, such as offices or factories. But a company like Meta or Google can earn large advertising revenue from users in France with little physical presence there. Several countries, including France and the U.K., created “digital services taxes” on that revenue. The U.S. has called these taxes unfair to American companies and has threatened retaliation.",
+      positionA:"Where the users are. That is where the value is created.",
+      positionB:"Where the company is based. That is where the work, investment, and risk-taking happen." },
+    { original:"Do corporate tax cuts boost investment and wages, or mainly shareholder payouts?",
+      question:"When governments cut corporate taxes, do companies invest more and raise wages, or mostly pay out more to shareholders?",
+      background:"The 2017 Tax Cuts and Jobs Act cut the U.S. corporate tax rate from 35% to 21%. Supporters predicted more investment in equipment and factories, which would lead to higher wages. Studies since then find that investment rose somewhat, but wage gains were smaller than promised, and companies bought back record amounts of their own stock. Economists still debate how much of the benefit reached workers.",
+      positionA:"Investment and wages. Lower taxes make more projects worth doing, and that helps workers.",
+      positionB:"Shareholder payouts. Most of the money went to stock buybacks and dividends." },
+    { original:"Is aggressive tax avoidance a legitimate duty to shareholders or a breach of corporate responsibility?",
+      question:"Is paying as little tax as legally possible part of a company's duty to its owners, or is aggressive tax avoidance irresponsible?",
+      background:"“Tax avoidance” is legal: using the rules to reduce taxes. “Tax evasion,” such as hiding income, is illegal. Some argue that managers work for shareholders and should not voluntarily pay more than the law requires. Others argue that companies benefit from public roads, schools, and courts, and that exploiting loopholes, even legally, shifts the cost of those services onto everyone else.",
+      positionA:"A legitimate duty. If the law allows it, managers should minimize taxes.",
+      positionB:"Irresponsible. Following the letter of the law while dodging its purpose is a failure of responsibility." },
+    { original:"Should the tax code be used to steer behavior (credits, incentives), or kept simple and neutral?",
+      question:"Should the tax system be used to encourage certain behavior, like buying electric cars or doing research, or be kept simple and neutral?",
+      background:"Governments often offer tax credits or deductions to encourage activities such as research, clean energy, home ownership, and hiring. These are sometimes called “tax expenditures,” because they cost the government revenue just as direct spending does. Critics say they make the tax code complicated, favor whoever has the best lobbyists, and that a simple code with low rates would work better.",
+      positionA:"Use it to encourage behavior. Tax incentives are an effective way to promote valuable activity.",
+      positionB:"Keep it neutral. Simple rules are fairer and let markets decide." }
+    ]},
+  { id:"acc-ma", name:"Managerial Accounting",
+    about:"How organizations use internal financial information, such as costs, budgets, and performance measures, to make decisions and manage people. Unlike financial reporting, this information is for managers rather than outside investors.",
+    terms:["management accounting","performance measurement","Goodhart's law","budgeting","rolling forecasts","Beyond Budgeting","activity-based costing","balanced scorecard","executive compensation"],
+    questions:[
+    { original:"Do performance metrics improve decisions, or teach people to game the metric?",
+      question:"Do performance measures help people make better decisions, or teach them to chase the number instead of the goal?",
+      background:"Organizations measure performance with targets such as sales quotas, test scores, and customer wait times. The economist Charles Goodhart observed that when a measure becomes a target, it stops being a good measure, because people find ways to hit the number without achieving the real goal. In the 2010s, Wells Fargo employees opened millions of accounts customers never asked for in order to meet sales targets.",
+      positionA:"Better decisions. Without measurement, there's no way to know what's working.",
+      positionB:"Gaming the number. People will hit a target however is easiest, even when it hurts the organization." },
+    { original:"Is traditional budgeting still useful, or should firms move to rolling forecasts or “beyond budgeting”?",
+      question:"Is the traditional yearly budget still useful, or should companies plan in a more flexible way?",
+      background:"Most companies set a budget once a year, and managers are judged on whether they meet it. Critics say annual budgets are out of date by the time they're approved, and that they encourage managers to set easy targets and to spend whatever is left at year end. Alternatives include “rolling forecasts,” which are updated every quarter, and “Beyond Budgeting,” which drops fixed annual targets altogether.",
+      positionA:"The yearly budget still works. It creates discipline and accountability.",
+      positionB:"Plan more flexibly. Conditions change too fast for a once-a-year plan." },
+    { original:"Does activity-based costing justify its complexity?",
+      question:"Is a more detailed method of working out what each product really costs worth the extra effort?",
+      background:"Many costs, such as rent, IT, and customer service, are shared across products. Traditional methods spread these costs evenly, for example in proportion to labor hours. “Activity-based costing” traces costs to the activities that cause them, such as setting up machines or handling customer complaints. It often reveals that some products or customers are unprofitable. But it takes considerable time and data to set up and keep current.",
+      positionA:"Worth it. Accurate costs keep companies from losing money without realizing it.",
+      positionB:"Usually not worth it. Simpler estimates are good enough for most decisions." },
+    { original:"Should managers be paid on accounting measures or on stock price?",
+      question:"Should executives be rewarded based on their company's accounting profits, or on its stock price?",
+      background:"Executive bonuses are often tied to accounting measures, such as earnings, or to the stock price, through stock options and shares. Accounting measures reflect what managers can control, but they can be manipulated and may encourage short-term thinking. Stock prices reflect investors' views about the company's long-term future, but they also move for reasons managers don't control, such as interest rates.",
+      positionA:"Accounting measures. They reflect what managers actually control.",
+      positionB:"Stock price. It ties managers to the owners' interests and the long run." },
+    { original:"Do balanced scorecards improve strategy, or just add reporting overhead?",
+      question:"Does tracking a mix of financial and non-financial goals improve a company's strategy, or just create more reports?",
+      background:"The “balanced scorecard,” introduced by Robert Kaplan and David Norton in 1992, asks companies to track four areas: financial results, customers, internal processes, and learning and growth. The idea is that profit alone tells you how the company did in the past, not how it is positioned for the future. Critics say companies end up tracking dozens of measures that no one uses.",
+      positionA:"It improves strategy. It makes managers look beyond this quarter's profit.",
+      positionB:"It adds overhead. More measures mean more reporting and less focus." }
+    ]},
+  { id:"acc-fo", name:"Forensic Accounting",
+    about:"How accountants and investigators detect, investigate, and prevent financial fraud, and how they present financial evidence in court.",
+    terms:["forensic accounting","fraud detection","fraud triangle","fraud diamond","SEC whistleblower program","Benford's law","textual analysis of annual reports","blockchain analytics","Association of Certified Fraud Examiners"],
+    questions:[
+    { original:"Can analytics and AI detect fraud before it happens, or only after the damage is done?",
+      question:"Can data analysis and artificial intelligence catch fraud before it causes damage, or only afterward?",
+      background:"Fraud is often discovered long after it begins. The Association of Certified Fraud Examiners reports that a typical fraud goes on for about a year before it is detected. Data tools can now flag unusual patterns as they happen, such as a series of payments just under an approval limit. But fraudsters adapt, and AI systems can produce many false alarms or miss new schemes entirely.",
+      positionA:"Before. Real-time monitoring can stop fraud while it is happening.",
+      positionB:"Only after. Fraudsters adapt faster than detection tools improve." },
+    { original:"Do whistleblower bounties uncover fraud, or encourage opportunistic tips?",
+      question:"Do cash rewards for reporting fraud uncover real wrongdoing, or mainly attract opportunistic tips?",
+      background:"Since 2011, the U.S. Securities and Exchange Commission (SEC) has paid whistleblowers 10% to 30% of the penalties it collects, when those penalties exceed $1 million, as a result of their tips. It has paid out more than $2 billion. Supporters say insiders take huge career risks and deserve compensation. Critics worry that the rewards encourage people to skip their company's internal reporting channels or to file weak claims.",
+      positionA:"Real wrongdoing. Insiders need a reason to take the risk of speaking up.",
+      positionB:"Opportunistic tips. Money brings low-quality claims and bypasses internal controls." },
+    { original:"Are textual signals in financial reports reliable predictors of fraud, such as tone or readability?",
+      question:"Can the writing in a company's financial reports, such as how upbeat or how hard to read it is, signal fraud?",
+      background:"Researchers have found that companies with poor results tend to write longer, harder-to-read annual reports, possibly to obscure bad news. Others have analyzed the language executives use on calls with investors for signs of deception. Investors and regulators now use these tools. But writing style varies for many innocent reasons, and executives can learn to sound honest.",
+      positionA:"Reliable. How people write reveals what they are trying to hide.",
+      positionB:"Unreliable. Writing style varies for too many innocent reasons." },
+    { original:"Is the “fraud triangle” (pressure, opportunity, rationalization) still an adequate model?",
+      question:"Is the classic explanation of why people commit fraud, which points to pressure, opportunity, and self-justification, still good enough?",
+      background:"The “fraud triangle,” based on criminologist Donald Cressey's research in the 1950s, says fraud happens when three things combine: pressure (such as debt or demanding targets), opportunity (such as weak controls), and rationalization (“I'll pay it back”). Critics say it focuses on individual employees and misses organized schemes, the personal capabilities of powerful executives, and corporate cultures in which fraud becomes normal.",
+      positionA:"Still adequate. The three factors explain most fraud cases.",
+      positionB:"Outdated. It misses group fraud, corporate culture, and powerful executives." },
+    { original:"Does crypto make financial crime easier to hide, or easier to trace?",
+      question:"Does cryptocurrency make financial crime easier to hide, or easier to trace?",
+      background:"Cryptocurrency lets people send money without going through a bank, which makes it attractive for ransomware payments and money laundering. But most cryptocurrencies, including Bitcoin, record every transaction on a public ledger called a blockchain. Investigators using “blockchain analytics” have followed and recovered funds, including much of the ransom paid in the 2021 Colonial Pipeline cyberattack.",
+      positionA:"Easier to hide. No bank is watching, and money crosses borders instantly.",
+      positionB:"Easier to trace. Every transaction is permanently recorded in public." }
+    ]}
+  ]},
+
+{ id:"eco", name:"Economics",
+  about:"Economics studies how people, businesses, and governments make choices with limited resources, and how those choices add up to markets, industries, and national economies.",
+  subfields:[
+  { id:"eco-lb", name:"Labor Economics",
+    about:"How labor markets work: wages, employment, and working conditions, and how policies and technology affect workers.",
+    terms:["labor economics","minimum wage","monopsony","gig economy","independent contractor classification","noncompete agreements","immigration and wages","automation and employment","Card and Krueger"],
+    questions:[
+    { original:"Will AI replace workers or make them more productive?",
+      question:"Will artificial intelligence replace workers, or make them more productive?",
+      background:"Earlier technologies, such as tractors and computers, eliminated some jobs but created others, and wages rose over time. Some economists argue AI is different because it can perform mental tasks, like writing and analysis, that used to be safe from automation. Early studies find that AI tools raise productivity most for less-experienced workers, but the long-run effects on employment are still unknown.",
+      positionA:"Replace them. AI can do enough tasks that many jobs will disappear.",
+      positionB:"Make them more productive. AI will change jobs more than it eliminates them." },
+    { original:"Do minimum wage increases cost jobs, or does the evidence say the effects are small?",
+      question:"Do minimum wage increases cost jobs, or are the effects on employment small?",
+      background:"Basic supply-and-demand reasoning predicts that if labor costs more, employers will hire fewer workers. But a famous 1994 study by David Card and Alan Krueger compared fast-food restaurants in New Jersey, which raised its minimum wage, with those in neighboring Pennsylvania, which didn't, and found no job losses. Research since then has been mixed: moderate increases seem to have small effects, while the effects of large increases are still debated.",
+      positionA:"They cost jobs. Employers respond to higher costs by hiring fewer people.",
+      positionB:"The effects are small. Workers gain more than they lose." },
+    { original:"Is the gig economy flexible opportunity or precarious work?",
+      question:"Is gig work, like driving for Uber or delivering for DoorDash, a flexible opportunity or insecure work?",
+      background:"Gig workers are usually classified as independent contractors rather than employees, so they don't get protections like a guaranteed minimum wage, health insurance, or unemployment insurance. Companies and many workers value the freedom to work whenever they want. Critics argue that the companies control the work much as employers do, while shifting the risks onto workers.",
+      positionA:"Flexible opportunity. Workers choose when and how much to work.",
+      positionB:"Insecure work. Workers carry the risks without employee protections." },
+    { original:"Do noncompete agreements protect investment in workers, or suppress wages?",
+      question:"Do noncompete agreements protect companies' investment in training workers, or hold down wages?",
+      background:"A noncompete agreement prevents an employee from working for a competitor for a period after leaving, and some have been used even for sandwich-shop workers. Companies say these agreements protect trade secrets and the money spent on training. Research finds that noncompetes reduce wages by limiting workers' options. The Federal Trade Commission banned most noncompetes in 2024, but a federal court blocked the rule and the FTC later dropped its defense of it. California bans them entirely.",
+      positionA:"They protect investment. Companies won't train workers who can carry that knowledge to a rival.",
+      positionB:"They hold down wages. Workers who can't leave can't negotiate." },
+    { original:"Does immigration lower wages for native workers, or expand the economy for everyone?",
+      question:"Does immigration lower wages for native-born workers, or grow the economy for everyone?",
+      background:"If more workers compete for the same jobs, wages could fall. But immigrants also spend money, start businesses, and often do different jobs than native-born workers, which can increase the demand for labor. Most studies find small effects on average wages, but economists such as George Borjas and David Card have disagreed sharply about the effects on the lowest-paid workers.",
+      positionA:"It lowers wages. More workers competing for jobs means lower pay for some.",
+      positionB:"It grows the economy. Immigrants create jobs as well as fill them." }
+    ]},
+  { id:"eco-mm", name:"Monetary Policy and Macroeconomics",
+    about:"How the economy as a whole behaves, including inflation, unemployment, growth, and interest rates, and how central banks and governments try to manage it.",
+    terms:["Federal Reserve","dual mandate","central bank independence","inflation","quantitative easing","government debt","interest rate vs. growth rate (r < g)","monetary policy","fiscal policy"],
+    questions:[
+    { original:"Should central banks target only inflation, or also employment, financial stability, or climate?",
+      question:"Should central banks focus only on controlling inflation, or also on jobs, financial stability, and climate change?",
+      background:"A central bank, such as the U.S. Federal Reserve, sets interest rates and controls the supply of money. The Fed has a “dual mandate”: stable prices and maximum employment. Others, like the European Central Bank, focus mainly on inflation. Some argue central banks should also guard against financial bubbles or climate risk. Others say more goals mean less accountability and more political pressure.",
+      positionA:"Inflation only. A single clear goal is easier to achieve and to hold them accountable for.",
+      positionB:"Broader goals. Central banks affect jobs, stability, and climate, so they should consider them." },
+    { original:"How independent from elected officials should central banks be?",
+      question:"How independent from elected politicians should central banks be?",
+      background:"Politicians may want low interest rates before an election to boost the economy, even if that causes inflation later. That is why most central banks are designed to be independent of elected officials. Evidence from the U.S. in the 1970s and from countries like Turkey more recently suggests political pressure leads to higher inflation. But critics ask why unelected officials should make decisions with such large effects on jobs and wealth.",
+      positionA:"Fully independent. Politics and money creation don't mix.",
+      positionB:"More accountable. Decisions this important should answer to voters." },
+    { original:"Was post-pandemic inflation mainly a demand story or a supply story?",
+      question:"Was the high inflation after COVID mainly caused by too much spending, or by problems producing and shipping goods?",
+      background:"U.S. inflation reached 9.1% in June 2022, the highest in four decades. One explanation focuses on demand: stimulus payments and low interest rates gave people more money to spend than the economy could produce goods for. Another focuses on supply: factory shutdowns, shipping backlogs, and Russia's invasion of Ukraine raised the cost of goods and energy. Most economists think both mattered; the debate is about the balance.",
+      positionA:"Demand. Too much money was chasing too few goods.",
+      positionB:"Supply. Disrupted production and energy shocks drove prices up." },
+    { original:"Does quantitative easing work, and is unwinding it risky?",
+      question:"Does it work when central banks create money to buy bonds, and is it risky to reverse?",
+      background:"When interest rates are already near zero, central banks can still try to stimulate the economy through “quantitative easing” (QE): creating money to buy government bonds and other assets, which lowers long-term interest rates. The Federal Reserve's holdings grew from under $1 trillion in 2008 to nearly $9 trillion in 2022. Critics argue QE inflated the prices of stocks and homes, which mostly benefits the wealthy, and that shrinking those holdings could disrupt markets.",
+      positionA:"It works. It helped prevent depressions in 2008 and 2020.",
+      positionB:"It's overrated and risky. The benefits were modest and the side effects are large." },
+    { original:"Is high government debt dangerous, or manageable when interest rates are low relative to growth?",
+      question:"Is high government debt dangerous, or manageable as long as interest rates stay below the economy's growth rate?",
+      background:"U.S. federal debt held by the public is now roughly equal to the size of the entire economy (GDP). Some economists argue that debt is manageable when the interest rate is lower than the economy's growth rate (written “r < g”), because the debt then shrinks relative to the economy over time. Others warn that interest rates rose sharply after 2022, and that in 2024 the government spent more on interest than on national defense.",
+      positionA:"Dangerous. Debt eventually forces higher taxes, inflation, or a crisis.",
+      positionB:"Manageable. A growing economy can carry a large debt." }
+    ]},
+  { id:"eco-tr", name:"International Trade",
+    about:"Why countries trade, who wins and loses from trade, and how tariffs, sanctions, and government support for industries shape the global economy.",
+    terms:["international trade","tariffs","comparative advantage","China shock","reshoring","friend-shoring","industrial policy","CHIPS and Science Act","economic sanctions"],
+    questions:[
+    { original:"Do tariffs protect domestic industries or mainly raise prices for consumers?",
+      question:"Do tariffs protect domestic industries, or mainly raise prices for consumers?",
+      background:"A tariff is a tax on imported goods. It makes foreign products more expensive, which can help domestic producers compete. Studies of the 2018–2019 U.S. tariffs on Chinese goods found that most of the cost was passed on to U.S. buyers. Since 2025, the U.S. has raised tariffs far more broadly. Supporters argue they will bring manufacturing back and strengthen the country's bargaining position.",
+      positionA:"They protect industry. Tariffs keep jobs and production at home.",
+      positionB:"They raise prices. Consumers and businesses that buy imports pay the cost." },
+    { original:"Is reshoring or “friend-shoring” worth the efficiency cost?",
+      question:"Is moving production back home, or to friendly countries, worth the higher cost?",
+      background:"For decades, companies moved production to wherever it was cheapest, often China. “Reshoring” brings production back home; “friend-shoring” moves it to allied countries. The COVID pandemic and tensions with China exposed the risks of depending on one country for medicines, computer chips, and other critical goods. But producing in higher-cost countries means higher prices.",
+      positionA:"Worth it. Security and reliability are worth paying for.",
+      positionB:"Not worth it. Consumers pay the cost, and supply can be spread out without it." },
+    { original:"Did trade with China (the “China shock”) do more harm to U.S. workers than economists expected?",
+      question:"Did trade with China hurt American workers more than economists expected?",
+      background:"Economists long argued that free trade benefits nations overall, and that workers who lose jobs to imports would find new ones. But research by David Autor, David Dorn, and Gordon Hanson, known as the “China shock” studies, found that U.S. communities exposed to Chinese import competition after 2001 suffered lasting job losses, lower wages, and social problems for more than a decade. Other researchers note that consumers gained from cheaper goods and that automation also eliminated manufacturing jobs.",
+      positionA:"Yes. The damage was deeper and longer-lasting than economists predicted.",
+      positionB:"It has been overstated. Consumers benefited, and automation cost more jobs." },
+    { original:"Should industrial policy (subsidies for chips and clean energy) be revived, or does government pick losers?",
+      question:"Should governments pay to support specific industries, like computer chips and clean energy, or does that waste money on the wrong bets?",
+      background:"“Industrial policy” means government support for particular industries. The 2022 CHIPS Act included about $52 billion for U.S. semiconductor manufacturing and research, and the Inflation Reduction Act offered large tax credits for clean energy, some of which have since been cut back. Supporters point to the success of South Korea and Taiwan. Critics point to failures like Solyndra, a solar company that went bankrupt after receiving a $535 million federal loan guarantee.",
+      positionA:"Support them. Some industries are too important to leave to the market.",
+      positionB:"Avoid it. Governments are bad at picking winners and good at funding losers." },
+    { original:"Do sanctions change governments' behavior, or mostly hurt civilians?",
+      question:"Do economic sanctions change governments' behavior, or mainly hurt ordinary people?",
+      background:"Sanctions restrict trade or financial dealings with a country, company, or person. They have been used against countries like Russia, Iran, and North Korea. Research suggests sanctions rarely achieve major goals, such as forcing a government to change its policies. Supporters argue they still raise the cost of aggression. Critics note they cause shortages that hit ordinary citizens hardest.",
+      positionA:"They work. They impose real costs and limit dangerous behavior.",
+      positionB:"They mostly hurt civilians. Governments adapt while ordinary people suffer." }
+    ]},
+  { id:"eco-be", name:"Behavioral Economics",
+    about:"How real people make economic decisions, including the predictable ways they depart from the “perfectly rational” model, and how policy can use those insights.",
+    terms:["behavioral economics","nudge","choice architecture","default effect","replication crisis","bounded rationality","loss aversion","Daniel Kahneman","Richard Thaler"],
+    questions:[
+    { original:"Do nudges produce durable behavior change, or are their effects overstated?",
+      question:"Do small changes in how choices are presented, known as “nudges,” produce lasting changes in behavior, or are their effects exaggerated?",
+      background:"A “nudge,” a term popularized by Richard Thaler and Cass Sunstein, changes how choices are presented without forbidding any option: for example, putting fruit at eye level in a cafeteria or sending reminder texts. Early studies reported impressive effects. But a 2022 review argued that once studies with no results, which often go unpublished, are taken into account, the average effect may be close to zero.",
+      positionA:"Lasting. Small design changes can reliably change behavior.",
+      positionB:"Exaggerated. Once unpublished results are counted, the effects shrink." },
+    { original:"Should governments use behavioral insights at all, or is that manipulation?",
+      question:"Should governments use psychological research to influence citizens' choices, or is that manipulation?",
+      background:"Governments, starting with the U.K., created “nudge units” to apply behavioral research. For example, telling people who were late on taxes that most of their neighbors pay on time increased payments. Supporters say every choice has to be presented somehow, so it might as well be designed well. Critics argue it influences people without their awareness, and that the government decides what is “good” for them.",
+      positionA:"Use it. If it helps people reach their own goals, it is good policy.",
+      positionB:"It's manipulation. Governments shouldn't use psychological techniques on citizens." },
+    { original:"How many famous behavioral findings survive replication?",
+      question:"How many famous findings about human behavior hold up when other researchers repeat the studies?",
+      background:"Science relies on “replication”: other researchers repeating a study to see whether they get the same result. In the 2010s, attempts to repeat famous psychology studies found that many did not hold up, a problem known as the “replication crisis.” Some well-known behavioral findings, such as “ego depletion” (the idea that willpower runs down like a battery), largely failed. Others, such as loss aversion, have held up better, though even that is debated.",
+      positionA:"Many fail. The field needs to be much more skeptical of its own findings.",
+      positionB:"The core findings hold. The failures are mostly in weaker side studies." },
+    { original:"Are people irrational, or rational given their limited information and attention?",
+      question:"Are people irrational, or are they making reasonable choices given their limited information and attention?",
+      background:"Behavioral economists have documented many “biases”: people procrastinate, overvalue what they already own, and are swayed by how options are described. Some conclude that people are systematically irrational. Others, building on Herbert Simon's idea of “bounded rationality” and Gerd Gigerenzer's work on rules of thumb, argue that these mental shortcuts are sensible strategies when information and attention are limited.",
+      positionA:"Irrational. People make predictable mistakes that hurt them.",
+      positionB:"Reasonably rational. Shortcuts are smart when time and information are limited." },
+    { original:"Do default options (auto-enrollment) help people, or just exploit inertia?",
+      question:"When employers automatically enroll workers in retirement savings plans, does that help them, or exploit their tendency to leave things as they are?",
+      background:"When workers have to sign up for a retirement plan, many never do. When they are enrolled automatically and have to opt out, participation jumps; one well-known study found it rose from under 40% to over 85%. The SECURE 2.0 Act of 2022 requires automatic enrollment for most new retirement plans. Critics note that many people then stay at the low default savings rate and never make an active choice.",
+      positionA:"It helps. Most people want to save, and the default helps them follow through.",
+      positionB:"It exploits inertia. People end up in plans they never really chose." }
+    ]},
+  { id:"eco-io", name:"Industrial Organization",
+    about:"How industries are structured, including how many firms compete and how they set prices, and when the government should step in to protect competition, an area of law known as antitrust.",
+    terms:["industrial organization","antitrust","market power","network effects","consumer welfare standard","merger review","algorithmic pricing","tacit collusion","self-preferencing","Digital Markets Act"],
+    questions:[
+    { original:"Are big tech platforms a natural result of competition, or a competition problem?",
+      question:"Did big technology companies grow by beating competitors fairly, or is their size itself a problem for competition?",
+      background:"Platforms like Google Search and Amazon's marketplace become more useful the more people use them, an effect called “network effects.” That tends to produce one dominant company. In 2024, a federal court ruled that Google had illegally maintained a monopoly in online search. Defenders say these companies won by building better products, many of them free.",
+      positionA:"Fair competition. They won because users prefer their products.",
+      positionB:"A competition problem. Once dominant, they keep new rivals from emerging." },
+    { original:"Should antitrust focus only on consumer prices, or also on market power and labor?",
+      question:"Should competition law focus only on whether consumers pay higher prices, or also on corporate power and its effects on workers?",
+      background:"Since the 1970s, U.S. antitrust law has mostly followed the “consumer welfare standard”: a merger or business practice is harmful mainly if it raises prices or lowers quality for consumers. A newer group of scholars, sometimes called the “New Brandeis” movement, argues that this standard misses harms when products are free, when companies hold down workers' wages, or when concentrated economic power influences politics.",
+      positionA:"Consumer prices. A clear standard keeps the law predictable.",
+      positionB:"Broader power. Size can harm workers, suppliers, and democracy even when prices are low." },
+    { original:"Do mergers create efficiencies, or mainly reduce competition?",
+      question:"When companies merge, do they become more efficient, or mainly reduce competition?",
+      background:"Merging companies usually promise “synergies,” meaning lower costs from combining their operations. But fewer competitors can also mean higher prices. Studies of hospital and airline mergers often find that prices rose afterward. Other studies find that many mergers fail to deliver the promised savings at all, in which case the companies' own shareholders lose too.",
+      positionA:"More efficient. Mergers often reduce costs and improve products.",
+      positionB:"Less competition. The main result is usually higher prices." },
+    { original:"Is algorithmic pricing a route to tacit collusion?",
+      question:"Can pricing software let competing companies keep prices high without ever talking to each other?",
+      background:"Many companies now set prices with software. If competing landlords all use the same pricing software, it may recommend similarly high rents to all of them. In 2024 the U.S. Justice Department sued RealPage, a rent-pricing software company, over exactly this concern. Explicit agreements to fix prices are illegal, but the law is unclear when the coordination happens through shared software rather than an agreement.",
+      positionA:"Yes. Shared algorithms can produce price-fixing without any agreement.",
+      positionB:"Overstated. Algorithms also help companies undercut each other faster." },
+    { original:"Should platforms be allowed to compete against the sellers who use them?",
+      question:"Should a platform like Amazon be allowed to sell its own products in competition with the independent sellers who use its platform?",
+      background:"Amazon runs a marketplace where independent sellers list products, and it also sells its own products, such as the Amazon Basics line. Critics argue Amazon can use sellers' sales data to copy successful products and then rank its own versions higher. The European Union's Digital Markets Act restricts this kind of “self-preferencing.” Defenders note that store brands are common: supermarkets sell their own brands next to name brands.",
+      positionA:"Allow it. Store brands are normal and give consumers cheaper options.",
+      positionB:"Restrict it. Owning the marketplace and competing in it is an unfair advantage." }
+    ]}
+  ]},
+
+{ id:"fin", name:"Finance",
+  about:"Finance studies how people and organizations raise, invest, and manage money, how financial markets set prices, and how the financial system can be kept stable.",
+  subfields:[
+  { id:"fin-ap", name:"Asset Pricing and Investments",
+    about:"How financial assets like stocks and bonds are valued, why some investments earn more than others, and whether investors can consistently beat the market.",
+    terms:["efficient market hypothesis","passive investing","index funds","factor investing","value premium","momentum","market anomalies","common ownership","Eugene Fama","Robert Shiller"],
+    questions:[
+    { original:"Is passive investing making markets less efficient?",
+      question:"Is the growth of index funds making stock markets worse at pricing companies accurately?",
+      background:"An index fund buys every stock in an index, such as the S&P 500, instead of choosing particular stocks. These “passive” funds charge low fees, and they now hold more U.S. fund money than “active” funds, whose managers research companies and pick stocks. But markets rely on active investors' research to set accurate prices. If too few investors do that research, prices could drift away from what companies are really worth.",
+      positionA:"Yes. Fewer people researching companies means less accurate prices.",
+      positionB:"No. The remaining active investors are enough to keep prices accurate." },
+    { original:"Are markets efficient, or do anomalies and bubbles show they aren't?",
+      question:"Do stock prices accurately reflect all available information, or do bubbles and crashes prove that markets get it wrong?",
+      background:"The “efficient market hypothesis,” associated with Eugene Fama, says prices already reflect all available information, so no one can consistently beat the market. But in the dot-com bubble of the late 1990s and the housing bubble before 2008, prices rose far above any reasonable value. Robert Shiller, who shared the 2013 Nobel Prize in economics with Fama, argues that psychology drives such bubbles.",
+      positionA:"Efficient. Consistently beating the market is nearly impossible.",
+      positionB:"Not efficient. Bubbles and crashes show prices can be badly wrong." },
+    { original:"Do most “factors” (value, momentum, etc.) survive out of sample, or are they data mining?",
+      question:"Are the patterns researchers have found in stock returns real, or the result of searching through data until something turns up?",
+      background:"Researchers have identified “factors,” characteristics that seem to predict higher returns. Examples include “value” (stocks that are cheap relative to the company's earnings or assets) and “momentum” (stocks that have recently risen). Hundreds of factors have been published. But if you test enough patterns, some will look meaningful by pure chance. Studies find that many factors weaken or disappear after they are published.",
+      positionA:"Real. Some factors reflect genuine risks or lasting patterns in investor behavior.",
+      positionB:"Mostly data mining. Test enough patterns and some will look good by chance." },
+    { original:"Is the value premium dead?",
+      question:"Is the long-standing advantage of investing in “cheap” stocks gone for good?",
+      background:"For decades, “value” stocks, those priced low relative to the company's earnings or accounting value, earned higher returns than “growth” stocks. It was one of the best-known patterns in finance. But from about 2007 to 2020, value stocks badly lagged as technology companies soared. Some argue the advantage disappeared once everyone knew about it, or that accounting numbers no longer capture what modern companies are worth. Others say it simply goes through long cycles.",
+      positionA:"Gone for good. The economy has changed, and so has what “cheap” means.",
+      positionB:"Just dormant. The value advantage has always come and gone." },
+    { original:"Does common ownership by large index funds reduce competition among companies?",
+      question:"When the same few fund companies own large stakes in every competitor in an industry, does that reduce competition?",
+      background:"Vanguard, BlackRock, and State Street are together often the largest shareholders in most large U.S. companies, including direct competitors such as the major airlines. Some research suggests that when competitors share the same owners, they have less reason to compete hard on price. Other researchers dispute those findings, noting that index funds rarely get involved in companies' business strategy.",
+      positionA:"Yes. Shared owners gain nothing from companies competing hard against each other.",
+      positionB:"No. Index funds are hands-off owners and don't influence pricing." }
+    ]},
+  { id:"fin-cf", name:"Corporate Finance",
+    about:"How companies decide which projects to invest in, how to pay for them (by borrowing or selling shares), and what to do with their profits.",
+    terms:["corporate finance","stock buybacks","capital structure","Modigliani-Miller theorem","private equity","leveraged buyout","shareholder value","initial public offering (IPO)","IPO underpricing"],
+    questions:[
+    { original:"Are stock buybacks good capital allocation, or short-termism?",
+      question:"When companies buy back their own stock, is that a smart use of money or short-term thinking?",
+      background:"In a “stock buyback,” a company uses its cash to purchase its own shares. That reduces the number of shares and usually raises the price of each remaining one. Large U.S. companies have recently spent close to $1 trillion a year on buybacks. Supporters say returning cash a company can't use well is efficient. Critics say buybacks boost executives' stock-based pay at the expense of investment and wages. Since 2023, the U.S. has charged a 1% tax on buybacks.",
+      positionA:"A smart use of money. Returning unneeded cash lets investors put it to work elsewhere.",
+      positionB:"Short-term thinking. That money could be invested in the business and its workers." },
+    { original:"Does capital structure matter, or is it mostly irrelevant (Modigliani-Miller)?",
+      question:"Does it matter whether a company pays for itself with borrowed money or by selling shares?",
+      background:"In 1958, Franco Modigliani and Merton Miller showed that under idealized conditions (no taxes, no bankruptcy costs, everyone has the same information) a company's value doesn't depend on how it is financed. Real markets aren't ideal. Interest on debt is tax-deductible, which favors borrowing, but too much debt raises the risk of bankruptcy. The question is how much these real-world factors matter.",
+      positionA:"It matters a lot. The right mix of borrowing and shares creates real value.",
+      positionB:"It's mostly irrelevant. What the business does matters far more than how it's financed." },
+    { original:"Do private equity buyouts improve companies, or strip them?",
+      question:"Do private equity buyouts improve companies, or strip them of value?",
+      background:"Private equity firms buy companies, often with large amounts of borrowed money (a “leveraged buyout”), try to improve them, and sell them several years later. Research finds that some buyouts do improve productivity. But some well-known companies, like Toys “R” Us, went bankrupt after buyouts loaded them with debt, and a study of nursing homes bought by private equity firms found worse outcomes for patients.",
+      positionA:"Improve them. Owners with a lot at stake push for real changes.",
+      positionB:"Strip them. Heavy debt and fees benefit the buyers at everyone else's expense." },
+    { original:"Should firms maximize shareholder value or a broader set of goals?",
+      question:"Should companies focus on maximizing returns to their shareholders, or pursue a broader set of goals?",
+      background:"In 1970, the economist Milton Friedman argued that a business's social responsibility is to increase its profits. In 2019, the Business Roundtable, a group of nearly 200 CEOs of large companies, declared that companies should serve customers, employees, suppliers, and communities as well as shareholders. Critics of the broader view argue that a company trying to serve everyone ends up with managers who answer to no one.",
+      positionA:"Shareholder returns. A single clear goal keeps managers accountable.",
+      positionB:"Broader goals. Companies should serve everyone they affect." },
+    { original:"Are IPOs underpriced, and why do so many firms now stay private longer?",
+      question:"Is the traditional process for companies to start selling shares to the public working well, or is it broken?",
+      background:"When a company first sells shares to the public, in an “initial public offering” (IPO), the share price often jumps on the first day of trading, by about 15–20% on average in the U.S. That suggests companies sell their shares for less than investors are willing to pay. Meanwhile, the number of U.S. public companies has fallen by roughly half since the late 1990s, as companies stay private longer and raise money from private investors instead.",
+      positionA:"It works. The first-day jump is fair payment to investors who take a risk on an unknown company.",
+      positionB:"It's broken. Banks underprice shares to reward favored clients, and costs and regulations push companies to stay private." }
+    ]},
+  { id:"fin-bk", name:"Banking and Financial Institutions",
+    about:"How banks and other financial institutions work, why they sometimes fail, and how regulation tries to keep the financial system safe.",
+    terms:["bank regulation","capital requirements","Basel III","too big to fail","Dodd-Frank Act","private credit","shadow banking","Silicon Valley Bank failure","central bank digital currency (CBDC)"],
+    questions:[
+    { original:"Is risk moving out of regulated banks into private credit and other less-regulated areas?",
+      question:"Is risk moving out of closely regulated banks and into less-regulated lenders?",
+      background:"After the 2008 financial crisis, banks faced stricter rules. Since then, lending has grown rapidly elsewhere, especially “private credit,” in which investment funds lend directly to companies. Private credit has grown to roughly $1.5–2 trillion worldwide. Supporters say it moves risk to investors who chose to take it, instead of to bank depositors. Regulators worry that it is hard to see into and could cause problems in a downturn.",
+      positionA:"Yes, and it's a growing danger that regulators can't see clearly.",
+      positionB:"It's a healthy shift. Risk now sits with investors who chose to take it." },
+    { original:"Are banks still “too big to fail”?",
+      question:"Are the largest banks still “too big to fail”?",
+      background:"In 2008, governments rescued major banks because letting them fail could have brought down the whole financial system. This is the “too big to fail” problem: if banks expect to be rescued, they may take bigger risks. The 2010 Dodd-Frank Act required banks to hold more of their own money and to prepare “living wills,” plans for an orderly failure. In 2023, regulators arranged for JPMorgan Chase, already the largest U.S. bank, to buy the failed First Republic Bank.",
+      positionA:"Still too big to fail. Governments would rescue them again.",
+      positionB:"Largely fixed. Reforms made big banks much safer." },
+    { original:"Do higher capital requirements make banks safer, or just reduce lending?",
+      question:"Do rules requiring banks to fund themselves with more of their own money make them safer, or just reduce lending?",
+      background:"A bank's “capital” is its own money, mainly from shareholders, as opposed to deposits and borrowed money. More capital means a bank can absorb larger losses without failing. Banks argue that requiring more capital makes lending more expensive and reduces credit for businesses and households. Economists such as Anat Admati argue that much higher capital levels would cost the economy very little.",
+      positionA:"Safer. More capital is the best protection against crises.",
+      positionB:"Less lending. High requirements push credit away from the economy." },
+    { original:"Did the 2023 regional bank failures show a failure of regulation or of management?",
+      question:"Were the 2023 bank failures, including Silicon Valley Bank, mainly the fault of regulators or of the banks' own managers?",
+      background:"In March 2023, Silicon Valley Bank failed after customers tried to withdraw $42 billion in a single day. The bank had invested heavily in long-term bonds that lost value when interest rates rose, and most of its deposits were above the $250,000 limit covered by government insurance. Its managers ignored the risk from rising rates. But the Federal Reserve's own review found that its supervisors had identified problems and didn't act forcefully, and some rules had been loosened in 2018.",
+      positionA:"Regulators. Supervisors saw the problems and failed to act.",
+      positionB:"Management. The bank took obvious risks and ignored warnings." },
+    { original:"Should central banks issue digital currencies, and what would that mean for banks?",
+      question:"Should central banks issue their own digital currencies, and what would that mean for banks?",
+      background:"A “central bank digital currency” (CBDC) would be digital money issued directly by a central bank, something like digital cash. China has tested a digital yuan, and the European Central Bank is preparing a digital euro. Supporters point to faster, cheaper payments. Critics raise privacy concerns and worry that in a crisis people would pull their money out of banks and into the CBDC. A 2025 U.S. executive order prohibited federal agencies from creating one.",
+      positionA:"Issue them. Public digital money would be safer and more efficient.",
+      positionB:"Don't. They threaten privacy and could drain deposits from banks." }
+    ]},
+  { id:"fin-bf", name:"Behavioral Finance",
+    about:"How psychology affects investors' decisions and market prices, and whether investors need protection from their own mistakes.",
+    terms:["behavioral finance","overconfidence bias","meme stocks","GameStop short squeeze","retail investors","gamification of trading","overreaction and underreaction","investor protection","Barber and Odean"],
+    questions:[
+    { original:"Do retail-trading apps democratize investing, or encourage gambling?",
+      question:"Do free stock-trading apps open investing up to everyone, or encourage gambling?",
+      background:"Apps like Robinhood made trading free and easy from a phone, attracting millions of young investors. Critics say features like confetti animations and frequent notifications turn trading into a game, and options trading, a form of high-risk bet, grew quickly among new investors. In 2024, Robinhood paid $7.5 million to settle Massachusetts charges that it had “gamified” investing. Supporters say ordinary people now have access that used to be limited to the wealthy.",
+      positionA:"Open it up. Anyone can now build wealth in the market.",
+      positionB:"Encourage gambling. The design rewards frequent, risky trading." },
+    { original:"Are meme-stock episodes irrational bubbles or a new form of coordination?",
+      question:"Were “meme stock” episodes like GameStop irrational bubbles, or a new way for investors to act together?",
+      background:"In January 2021, individual investors organizing on the Reddit forum r/wallstreetbets bought shares of GameStop, a struggling video-game retailer. Its stock rose from under $20 to over $400 within weeks, causing large losses for hedge funds that had bet the price would fall. Some see a bubble driven by hype. Others see ordinary investors coordinating to take on large institutions.",
+      positionA:"Irrational bubbles. The prices had nothing to do with the company's value.",
+      positionB:"A new way to act together. Small investors used social media to act as a group." },
+    { original:"Do investors systematically overreact or underreact to news?",
+      question:"Do investors tend to overreact to news, or underreact to it?",
+      background:"If investors overreact, stocks that drop sharply on bad news should later partly recover. Research by Werner De Bondt and Richard Thaler found that stocks that had done worst over several years went on to beat those that had done best. But other research finds underreaction: after a company reports surprising earnings, its stock price keeps drifting in the same direction for weeks. Both patterns may appear under different circumstances.",
+      positionA:"Overreact. Investors get carried away by dramatic news.",
+      positionB:"Underreact. Investors are slow to update their views." },
+    { original:"Does overconfidence explain excessive trading and poor returns?",
+      question:"Does overconfidence explain why some investors trade too much and earn poor returns?",
+      background:"Brad Barber and Terrance Odean studied tens of thousands of household brokerage accounts and found that the most active traders earned the lowest returns, largely because of trading costs. Men traded 45% more than women and earned lower returns. The researchers attributed this to overconfidence. Others argue that people trade for many other reasons, such as entertainment, needing cash, or acting on limited information.",
+      positionA:"Yes. Investors think they know more than they do.",
+      positionB:"Only partly. People trade for many reasons besides overconfidence." },
+    { original:"Should regulators protect investors from their own biases?",
+      question:"Should regulators protect investors from their own mistakes?",
+      background:"Securities regulators have traditionally focused on disclosure: companies must provide accurate information, and investors are then free to choose. Behavioral finance suggests disclosure alone may not help if people predictably misjudge risk. Some propose limits on risky products for inexperienced investors. Others argue adults should be free to make their own choices and learn from their losses.",
+      positionA:"Yes. When mistakes are predictable, rules should prevent them.",
+      positionB:"No. Adults should be free to take risks with their own money." }
+    ]},
+  { id:"fin-ft", name:"Fintech and Digital Assets",
+    about:"How new technology, including apps, algorithms, and blockchains, is changing payments, lending, and investing, and how regulators should respond.",
+    terms:["fintech","stablecoins","GENIUS Act","cryptocurrency valuation","decentralized finance (DeFi)","smart contracts","algorithmic lending","fair lending","tokenization of real-world assets"],
+    questions:[
+    { original:"Are stablecoins a real payments innovation or a new source of instability?",
+      question:"Are stablecoins a real improvement in how payments work, or a new source of financial instability?",
+      background:"A “stablecoin” is a cryptocurrency designed to hold a steady value, usually $1, by keeping reserves such as cash and short-term government bonds. Stablecoins allow fast, low-cost transfers worldwide at any hour. But if holders doubt the reserves, they may all rush to cash out, much like a run on a bank. TerraUSD, a stablecoin without real reserves, collapsed in 2022, wiping out tens of billions of dollars. The U.S. GENIUS Act of 2025 created the first federal rules for stablecoins.",
+      positionA:"A real improvement. Payments become faster and cheaper for everyone.",
+      positionB:"A new instability. Stablecoins can suffer runs just like unregulated banks." },
+    { original:"Does crypto have fundamental value, or only speculative value?",
+      question:"Does cryptocurrency have real underlying value, or is it worth only what the next buyer will pay?",
+      background:"A stock has value because it represents a share of a company's future profits, and a bond pays interest. Bitcoin pays neither. Supporters argue its value comes from its fixed supply (there will only ever be 21 million bitcoins), its independence from governments, and its usefulness for transfers, making it a kind of “digital gold.” Skeptics argue its price depends only on people expecting others to buy it later.",
+      positionA:"Real value. A fixed supply and independence from governments are worth something.",
+      positionB:"Only speculative. It produces no income, so its price rests on belief alone." },
+    { original:"Does fintech lending expand credit access, or recreate discrimination through algorithms?",
+      question:"Does lending decided by computer algorithms give more people access to credit, or reproduce discrimination?",
+      background:"Fintech lenders use algorithms and nontraditional data, such as rent payments or education, to decide who gets loans. This can help people with little credit history. A 2022 study of U.S. mortgages found that algorithmic lenders charged Black and Latino borrowers less extra interest than face-to-face lenders did, but did not eliminate the gap. Critics warn that algorithms can learn discrimination from historical data even without being told anyone's race.",
+      positionA:"More access. Algorithms can judge people more fairly than human loan officers.",
+      positionB:"Reproduced discrimination. Algorithms learn the biases built into past data." },
+    { original:"Should DeFi be regulated like banks or left alone?",
+      question:"Should financial services run by software on blockchains be regulated like banks, or left alone?",
+      background:"“Decentralized finance” (DeFi) uses programs on blockchains, called “smart contracts,” to offer lending, trading, and other services without a bank or company in the middle. Supporters say it is open to anyone and cuts out middlemen. But hacks and scams have cost users billions of dollars, and often there is no one to hold responsible. Regulating it is difficult when there is no company to regulate.",
+      positionA:"Regulate it like banks. The same activity should face the same rules.",
+      positionB:"Leave it alone. Heavy rules would kill an innovation that doesn't fit the old model." },
+    { original:"Will tokenizing real-world assets transform markets or remain marginal?",
+      question:"Will recording ownership of real assets, like buildings, bonds, or art, on blockchains transform markets?",
+      background:"“Tokenization” means representing ownership of an asset as a digital token on a blockchain. This could let people buy small fractions of expensive assets and trade them instantly at any hour, instead of waiting days for a trade to settle. BlackRock, the world's largest asset manager, launched a tokenized fund in 2024. Skeptics note that existing systems already work, and that legal ownership still depends on courts and official records, not tokens.",
+      positionA:"Transform them. Markets will become faster, cheaper, and more accessible.",
+      positionB:"Remain marginal. It solves problems existing systems already handle." }
+    ]}
+  ]},
+
+{ id:"mgt", name:"Management",
+  about:"Management studies how organizations are led and run: how they set strategy, organize and motivate people, produce goods and services, and are held accountable.",
+  subfields:[
+  { id:"mgt-st", name:"Strategy",
+    about:"How companies decide where to compete and how to win, and why some companies outperform their rivals for long periods.",
+    terms:["competitive advantage","sustainable competitive advantage","Porter's Five Forces","platform strategy","conglomerate discount","make-or-buy decision","business ecosystems","first-mover advantage"],
+    questions:[
+    { original:"Does competitive advantage still last, or is all advantage temporary now?",
+      question:"Can a company's competitive advantage still last for decades, or is every advantage temporary now?",
+      background:"A “competitive advantage” is whatever lets a company consistently outperform its rivals: lower costs, a stronger brand, a unique product. Some companies, like Coca-Cola, have held their positions for over a century. But in 2013 the researcher Rita McGrath argued that in fast-changing industries, advantages now last only briefly, so companies must keep building new ones. BlackBerry and Nokia both lost dominant positions in phones within a few years.",
+      positionA:"Advantages can still last. Strong brands and scale are hard to copy.",
+      positionB:"Every advantage is temporary. Companies must keep reinventing themselves." },
+    { original:"Is Porter's Five Forces still useful in a platform economy?",
+      question:"Is a classic framework for analyzing how profitable an industry can be still useful now that so many businesses are digital platforms?",
+      background:"In 1979, Michael Porter proposed that an industry's profitability depends on five forces: rivalry among existing competitors, the threat of new competitors entering, the threat of substitute products, the bargaining power of buyers, and the bargaining power of suppliers. It remains one of the most widely taught business frameworks. Critics argue it was designed for traditional industries and fits poorly with platforms like Uber, which connect buyers and sellers rather than making a product themselves.",
+      positionA:"Still useful. These five forces still determine profits.",
+      positionB:"Outdated. Platforms work by different rules." },
+    { original:"Do diversified conglomerates create value or destroy it?",
+      question:"Do companies that run many unrelated businesses create value, or destroy it?",
+      background:"A conglomerate owns businesses in unrelated industries. General Electric once made jet engines, light bulbs, and medical scanners, and ran a large lending business. Research has often found a “conglomerate discount”: investors value diversified companies at less than the sum of their parts. GE split itself into three companies by 2024. Yet Berkshire Hathaway, which owns insurance companies, a railroad, and a candy maker, among many others, has been highly successful.",
+      positionA:"Create value. Strong management and shared resources can make the whole worth more.",
+      positionB:"Destroy value. Companies do best when they focus on what they know." },
+    { original:"Should firms build capabilities in-house or rely on partners and ecosystems?",
+      question:"Should companies build their own capabilities in-house, or rely on partners and outside suppliers?",
+      background:"Every company decides what to do itself and what to buy from others, known as the “make-or-buy” decision. Apple designs its own chips but relies on TSMC in Taiwan to manufacture them. Relying on partners can be cheaper and faster, but it means depending on others for critical work. In recent years, many companies have brought more work in-house; Tesla, for example, began making some of its own batteries.",
+      positionA:"Build in-house. Controlling key capabilities is a lasting advantage.",
+      positionB:"Rely on partners. No company can be the best at everything." },
+    { original:"Is first-mover advantage real, or do fast followers usually win?",
+      question:"Do the first companies into a new market usually win, or do the companies that follow them win instead?",
+      background:"“First-mover advantage” is the idea that being first into a market lets a company build its brand, capture customers, and set the standards. Amazon was an early online bookseller and became dominant. But Google wasn't the first search engine, Facebook wasn't the first social network, and the iPhone wasn't the first smartphone. Companies that follow can learn from the pioneer's mistakes.",
+      positionA:"First movers win. Being early builds a lead others can't catch.",
+      positionB:"Fast followers win. They learn from the pioneers' mistakes." }
+    ]},
+  { id:"mgt-ob", name:"Organizational Behavior and Human Resources",
+    about:"How people behave at work, including motivation, teamwork, culture, and leadership, and how organizations hire, pay, and manage their employees.",
+    terms:["organizational behavior","human resource management","remote and hybrid work","diversity, equity, and inclusion (DEI)","employee monitoring","pay transparency laws","four-day workweek","organizational culture"],
+    questions:[
+    { original:"Does remote and hybrid work help or hurt performance and culture?",
+      question:"Does remote and hybrid work help or hurt performance and workplace culture?",
+      background:"The pandemic made remote work common. A large study led by Stanford economist Nicholas Bloom, published in 2024, found that hybrid work (some days at home) did not reduce productivity or promotions and sharply reduced the number of people quitting. But many executives argue that new ideas, mentoring, and culture depend on in-person contact, and companies like Amazon now require employees in the office five days a week.",
+      positionA:"It helps. Flexibility keeps good employees without hurting results.",
+      positionB:"It hurts. Culture and learning depend on being together in person." },
+    { original:"Do diversity programs improve performance, and how should that be measured?",
+      question:"Do workplace diversity programs improve performance, and how should that be measured?",
+      background:"Many companies created programs to increase diversity in hiring and promotion. Reports from consulting firms such as McKinsey link diverse leadership teams to higher profits, but academic researchers have had trouble reproducing those findings. Research by Frank Dobbin and Alexandra Kalev found that some approaches, like mandatory diversity training, can backfire, while mentoring programs work better. Many U.S. companies scaled back these programs in 2025 under political and legal pressure.",
+      positionA:"They improve performance. Diverse teams make better decisions.",
+      positionB:"The evidence is weak. Many programs don't deliver what they promise." },
+    { original:"Is employee monitoring a productivity tool or a trust killer?",
+      question:"Is monitoring employees' computer activity a productivity tool, or does it destroy trust?",
+      background:"Software can now record employees' keystrokes, take screenshots, log the websites they visit, and even use their webcams. Use of these tools grew quickly with remote work. Employers say they need to know that work is getting done. Studies suggest heavy monitoring can increase stress and lead employees to focus on looking busy rather than on doing valuable work.",
+      positionA:"A productivity tool. Employers have a right to know how work time is spent.",
+      positionB:"A trust killer. Surveillance tells employees they aren't trusted." },
+    { original:"Do pay transparency laws reduce pay gaps, or create new conflicts?",
+      question:"Do laws requiring companies to share pay information reduce unfair pay gaps, or create new conflicts?",
+      background:"States including Colorado, California, and New York now require employers to list salary ranges in job postings. Supporters argue that secrecy about pay lets gaps, including gaps by gender and race, continue. Research finds that transparency does narrow gaps, but sometimes because higher earners' pay grows more slowly rather than because lower earners catch up, and that it can cause resentment among coworkers.",
+      positionA:"It reduces gaps. You can't fix what you can't see.",
+      positionB:"It creates conflict. Knowing coworkers' pay breeds resentment and slows raises." },
+    { original:"Are four-day workweeks sustainable?",
+      question:"Can companies keep a four-day workweek without losing productivity?",
+      background:"In 2022, 61 U.K. companies tested a four-day week with no cut in pay. Most kept the schedule after the trial ended, reporting similar revenue and less burnout among employees. Critics note that the companies volunteered for the trial, so they likely expected it to work, and that the approach is harder to apply in jobs like nursing or retail, where someone has to be present.",
+      positionA:"Sustainable. Rested people get the same work done in less time.",
+      positionB:"Not broadly sustainable. It works in some offices but not in most jobs." }
+    ]},
+  { id:"mgt-en", name:"Entrepreneurship",
+    about:"How new businesses are started, funded, and grown, and why some founders succeed while others don't.",
+    terms:["entrepreneurship","lean startup","minimum viable product","business planning","venture capital","startup funding","founder bias in venture capital","barriers to entry"],
+    questions:[
+    { original:"Do startups succeed more through planning or through fast experimentation?",
+      question:"Do startups succeed more through careful planning, or through fast experimentation?",
+      background:"Founders traditionally wrote detailed business plans before launching. The “lean startup” approach, popularized by Eric Ries in 2011, instead recommends launching a simple early version of a product quickly (a “minimum viable product”), learning from customers, and adjusting. Research shows planning helps some new ventures, but many successful companies ended up doing something very different from their original plan.",
+      positionA:"Planning. Thinking carefully first avoids costly mistakes.",
+      positionB:"Experimentation. You can't plan around what you don't yet know about customers." },
+    { original:"Is venture capital a good model for funding innovation, or does it distort which ideas get funded?",
+      question:"Is venture capital a good way to fund new ideas, or does it distort which ideas get funded?",
+      background:"Venture capital (VC) firms invest in young companies in exchange for part ownership. Because most startups fail, VC firms look for the few that might return 100 times their investment. Venture capital helped fund Google, Apple, and Moderna. But critics argue it favors software and fast-growing ideas, neglects slower-growing businesses, and is concentrated in a few places like Silicon Valley.",
+      positionA:"A good model. It funds risky ideas no bank would touch.",
+      positionB:"It distorts. Only ideas that could become enormous get funded." },
+    { original:"Are entrepreneurs born or made?",
+      question:"Are entrepreneurs born, or made?",
+      background:"Some research comparing twins suggests that genetics partly influence whether people become entrepreneurs. Other studies emphasize family background, access to money, education, and social connections; for example, children from high-income families are far more likely to become inventors. Entrepreneurship courses and programs assume the necessary skills can be taught.",
+      positionA:"Born. Personality traits like comfort with risk matter most.",
+      positionB:"Made. Skills, opportunities, and resources matter most." },
+    { original:"Does AI lower the barrier to starting a business, or make it easier to copy?",
+      question:"Does artificial intelligence make it easier to start a business, or easier for others to copy yours?",
+      background:"AI tools can now write code, design logos, draft marketing copy, and answer customer questions, so one person can do work that once required a team. That lowers the cost of starting a business. But it also lowers the cost for competitors to copy a product, which could make it harder to build a business that lasts.",
+      positionA:"Easier to start. AI puts powerful tools in every founder's hands.",
+      positionB:"Easier to copy. When everyone can build quickly, nothing stays unique." },
+    { original:"Why do founders with similar ideas get such different funding outcomes, and how much of that is bias?",
+      question:"Why do founders with similar ideas get very different amounts of funding, and how much of that is bias?",
+      background:"In recent years, startups founded only by women have received only about 2% of U.S. venture capital. Research by Dana Kanze and colleagues found that investors tended to ask male founders about potential gains and female founders about potential losses, and that founders who got more loss-focused questions raised less money. Others argue that differences in funding mostly reflect differences in industry, experience, and connections.",
+      positionA:"Mostly bias. Investors favor founders who look like them.",
+      positionB:"Mostly other factors. Experience, industry, and connections explain much of it." }
+    ]},
+  { id:"mgt-op", name:"Operations and Supply Chain",
+    about:"How companies produce goods and services and get them to customers, from factories and warehouses to global networks of suppliers.",
+    terms:["operations management","supply chain management","lean manufacturing","just-in-time production","supply chain resilience","reshoring","warehouse automation","supplier diversification","forced labor in supply chains"],
+    questions:[
+    { original:"Should firms optimize for efficiency (lean, just-in-time) or for resilience?",
+      question:"Should companies run as efficiently as possible, or keep extra inventory and backup suppliers in case something goes wrong?",
+      background:"“Just-in-time” production, developed by Toyota, keeps inventory to a minimum: parts arrive exactly when they are needed. This cuts costs and waste. But when COVID disrupted supply chains, companies with no spare parts had to stop production, and carmakers lost billions in sales during the chip shortage. Being “resilient” means paying for extra inventory and backup options that may never be used.",
+      positionA:"Efficiency. Extra inventory is waste that customers end up paying for.",
+      positionB:"Resilience. The cost of a shutdown far outweighs the cost of a buffer." },
+    { original:"Is reshoring production economically viable?",
+      question:"Can it make economic sense for a company to move its manufacturing back to a high-wage country like the U.S.?",
+      background:"Labor costs much more in the U.S. than in China, Vietnam, or Mexico. But automation reduces how much labor costs matter, tariffs make imports more expensive, and shipping disruptions have made long supply chains riskier. Some companies are building new U.S. factories, especially for computer chips and batteries, often with government subsidies.",
+      positionA:"Yes. Automation and risk have changed the math.",
+      positionB:"No. Without subsidies, the costs are still too high." },
+    { original:"Does automation in warehouses and factories create or destroy good jobs?",
+      question:"Does automation in warehouses and factories create good jobs, or eliminate them?",
+      background:"Amazon now uses more than a million robots in its warehouses. Automation can eliminate repetitive work and reduce injuries, while creating new jobs maintaining and running machines. Research by Daron Acemoglu and Pascual Restrepo found that U.S. areas that adopted more industrial robots saw lower employment and wages. Other studies find that companies that automate grow and end up hiring more people.",
+      positionA:"It creates good jobs. Safer, more skilled work replaces repetitive tasks.",
+      positionB:"It eliminates jobs. Machines replace far more workers than they employ." },
+    { original:"Can supply chains be made truly sustainable and transparent?",
+      question:"Can global supply chains be made truly sustainable and transparent?",
+      background:"A smartphone can contain materials from dozens of countries that pass through many suppliers, and companies often don't know who their suppliers' suppliers are. Problems like forced labor, child labor, and deforestation can be hidden deep in these chains. Laws such as the 2021 U.S. ban on goods made with forced labor in China's Xinjiang region now require companies to trace where their materials come from. Critics doubt full visibility is possible.",
+      positionA:"Yes. With technology and legal pressure, full tracing is achievable.",
+      positionB:"No. The chains are too complex, and inspections can be faked." },
+    { original:"Should firms concentrate suppliers to get better terms, or diversify to reduce risk?",
+      question:"Should companies buy from just a few suppliers to get better deals, or spread their purchases out to reduce risk?",
+      background:"Buying from a single supplier lets a company negotiate lower prices and build a close working relationship. But if that supplier is knocked out by a fire, a flood, or a war, production stops. After the 2011 earthquake in Japan damaged a single major chip factory, carmakers around the world had to slow production.",
+      positionA:"Concentrate. Close partnerships mean better prices and quality.",
+      positionB:"Diversify. Depending on one supplier is a risk not worth taking." }
+    ]},
+  { id:"mgt-cg", name:"Corporate Governance",
+    about:"How companies are controlled and held accountable: the relationships among shareholders, boards of directors, and executives.",
+    terms:["corporate governance","board of directors","fiduciary duty","stakeholder capitalism","codetermination","dual-class shares","CEO pay ratio","shareholder activism","board diversity"],
+    questions:[
+    { original:"Should corporations serve shareholders or stakeholders?",
+      question:"Should corporations be run for their shareholders, or for all their “stakeholders,” including employees, customers, and communities?",
+      background:"U.S. corporate law generally says a company's board of directors owes its duties to the company and its shareholders. “Stakeholder capitalism” argues that companies should also be governed in the interests of workers, customers, suppliers, and communities. In Germany, for example, workers elect up to half of the board members at large companies, a system called “codetermination.” Critics ask how a board can be held accountable if it serves many groups with conflicting interests.",
+      positionA:"Shareholders. Owners should control the company they own.",
+      positionB:"Stakeholders. Everyone affected by a company deserves a voice in how it is run." },
+    { original:"Do dual-class shares protect long-term vision, or entrench founders?",
+      question:"Do share structures that give founders extra voting power protect long-term thinking, or shield founders from accountability?",
+      background:"“Dual-class” share structures give some shareholders, usually the founders, more votes per share than everyone else. Mark Zuckerberg controls a majority of the votes at Meta while owning about 13% of its shares. Founders argue this lets them pursue long-term plans without pressure from short-term investors. Critics argue it lets founders ignore the shareholders who provided most of the money.",
+      positionA:"It protects long-term thinking. Founders can make bold bets.",
+      positionB:"It shields founders. No one can hold them accountable." },
+    { original:"Is CEO pay too high relative to performance?",
+      question:"Is CEO pay too high compared with how well companies actually perform?",
+      background:"In 2023, CEOs of the largest U.S. companies earned roughly 290 times as much as their typical workers, compared with about 20 times in 1965. Most CEO pay now comes as company stock, which supporters argue ties pay to performance. Critics argue that boards, whose members are often chosen with the CEO's input, approve generous pay, and that pay often rises even when performance doesn't.",
+      positionA:"Too high. Pay has outgrown any reasonable link to performance.",
+      positionB:"Justified. Skilled leaders of huge companies create enormous value." },
+    { original:"Does activist investing improve companies, or force short-termism?",
+      question:"Do activist investors improve companies, or push them toward short-term thinking?",
+      background:"“Activist” investors, often hedge funds, buy stakes in companies they believe are underperforming and push for changes: new board members, cost cuts, selling off divisions, or stock buybacks. Research by Lucian Bebchuk and colleagues found that company performance tends to improve in the five years after activist campaigns. Critics argue activists profit by cutting research and other investments that would pay off later.",
+      positionA:"They improve companies. Activists hold underperforming managers accountable.",
+      positionB:"They push short-term thinking. They cut long-term investment for quick gains." },
+    { original:"Do diverse boards make better decisions?",
+      question:"Do more diverse boards of directors make better decisions?",
+      background:"A board of directors oversees a company's management. Supporters argue that directors with different backgrounds challenge “groupthink.” Norway passed a law in 2003 requiring that at least 40% of corporate board members be women, and the European Union adopted a similar rule in 2022. Research on whether board diversity improves financial performance is mixed, and a federal court struck down Nasdaq's board-diversity disclosure rule in 2024.",
+      positionA:"Yes. Different perspectives lead to better oversight.",
+      positionB:"Not necessarily. Experience and independence matter more than demographics." }
+    ]}
+  ]},
+
+{ id:"mkt", name:"Marketing",
+  about:"Marketing studies how organizations understand customers, create products people value, and communicate with and sell to them.",
+  subfields:[
+  { id:"mkt-cb", name:"Consumer Behavior",
+    about:"How and why people buy what they buy: the psychology and social influences behind consumer choices.",
+    terms:["consumer behavior","constructed preferences","decoy effect","choice overload","attitude-behavior gap","greenwashing","online reviews","fake reviews","social commerce","impulse buying"],
+    questions:[
+    { original:"Do consumers choose rationally, or are their preferences built in the moment?",
+      question:"Do consumers know what they want ahead of time, or are their preferences formed in the moment of choosing?",
+      background:"Traditional economics assumes people have stable preferences, meaning they know what they like and choose accordingly. But research shows that choices shift depending on how options are presented. For example, adding a third option that is clearly worse than one of the others can make that one more appealing, an effect known as the “decoy effect.” This suggests preferences are often built at the moment of choice.",
+      positionA:"Consumers know what they want. Marketing can't change basic preferences.",
+      positionB:"Preferences form in the moment. Context shapes what people choose." },
+    { original:"Does too much choice paralyze consumers, or is that effect overstated?",
+      question:"Does offering too many options make consumers less likely to buy, or is that effect exaggerated?",
+      background:"In a famous 2000 study, shoppers who saw 24 flavors of jam were less likely to buy any than shoppers who saw only 6. This “choice overload” finding became widely known. But a 2010 review of 50 experiments found the average effect was close to zero, and a 2015 review found it appears only under certain conditions, such as when the options are hard to compare.",
+      positionA:"It's real. Too many options overwhelm shoppers.",
+      positionB:"It's exaggerated. More choice usually helps people find what they want." },
+    { original:"Do sustainability claims actually change what people buy?",
+      question:"Do environmental and sustainability claims actually change what people buy?",
+      background:"In surveys, many consumers say they prefer environmentally friendly products and would pay more for them. But actual purchases often don't match what people say, a pattern known as the “attitude-behavior gap.” Meanwhile, regulators are cracking down on “greenwashing,” meaning vague or misleading environmental claims.",
+      positionA:"Yes. Sustainability increasingly drives real purchases.",
+      positionB:"Not much. Price and convenience win at the checkout." },
+    { original:"How much do online reviews drive purchases, and can fake reviews be controlled?",
+      question:"How much do online reviews drive purchases, and can fake reviews be brought under control?",
+      background:"Most shoppers read reviews before buying, and research finds that higher ratings substantially increase sales. That gives sellers a strong incentive to fake reviews. In 2024 the Federal Trade Commission banned buying and selling fake reviews, including ones written by AI. Platforms remove millions of fake reviews a year, but enforcement remains difficult.",
+      positionA:"Reviews matter, and fakes can be controlled with enforcement and technology.",
+      positionB:"Fakes are too easy to produce, so reviews are becoming less trustworthy." },
+    { original:"Is social media shopping impulse-driven, or an efficient way to discover products?",
+      question:"Is shopping through social media driven by impulse, or is it an efficient way to discover products?",
+      background:"Platforms like TikTok Shop and Instagram let people buy products directly from videos and posts. Supporters say this shows people products they would never have found otherwise. Critics argue that endless scrolling, limited-time offers, and enthusiastic creators encourage purchases people later regret.",
+      positionA:"Impulse-driven. The design encourages buying without thinking.",
+      positionB:"Efficient discovery. People find products they actually want." }
+    ]},
+  { id:"mkt-dm", name:"Digital Marketing and Analytics",
+    about:"How companies advertise online and measure whether their marketing works, especially as privacy rules limit tracking.",
+    terms:["digital marketing","marketing analytics","marketing attribution","third-party cookies","App Tracking Transparency","GDPR","marketing mix modeling (MMM)","A/B testing","incrementality testing"],
+    questions:[
+    { original:"Can marketers still measure what works under privacy limits on tracking?",
+      question:"Can marketers still measure what works now that privacy rules limit how users can be tracked?",
+      background:"Marketers have long followed individual users across websites and apps to see which ads lead to purchases. Europe's GDPR privacy law (2018) and Apple's App Tracking Transparency feature (2021), which lets iPhone users block tracking, have limited this. Meta estimated that Apple's change alone would cost it about $10 billion in 2022. Marketers are turning to other methods, such as statistical models and controlled experiments.",
+      positionA:"Yes. New methods can measure effects without tracking individuals.",
+      positionB:"No. Measurement has become far less accurate." },
+    { original:"Is personalized advertising helpful or invasive?",
+      question:"Is personalized advertising helpful, or invasive?",
+      background:"Personalized ads use data about your browsing, purchases, and location to show you ads for products you are likely to want. Advertisers argue this makes ads more relevant and pays for free services like search and social media. Critics argue that the data collection behind it is extensive, poorly understood by users, and can be used to target vulnerable people.",
+      positionA:"Helpful. Relevant ads beat irrelevant ones, and they pay for free services.",
+      positionB:"Invasive. The data collection goes far beyond what people agreed to." },
+    { original:"Do digital ads work as well as attribution models claim?",
+      question:"Do online ads actually work as well as the numbers suggest?",
+      background:"“Attribution models” give credit for a sale to the ads a customer saw or clicked beforehand. But many of those customers would have bought anyway. When eBay ran an experiment that turned off its paid search ads for people searching “eBay,” sales barely changed; people simply clicked the regular search results instead. Experiments often find that ads' true effect is much smaller than attribution suggests.",
+      positionA:"They work. Online ads drive measurable sales.",
+      positionB:"They're overrated. Many of those sales would have happened anyway." },
+    { original:"Will AI-generated ads outperform human-made creative?",
+      question:"Will advertisements created by AI outperform those created by people?",
+      background:"AI tools can now generate ad images, video, and text in seconds, and produce thousands of versions to test against each other. Companies like Meta offer advertisers tools that automatically create and adjust ads. Supporters say AI can test more ideas, faster. Skeptics argue that the most memorable advertising depends on human insight, emotion, and cultural understanding.",
+      positionA:"AI will outperform. It can test and adapt at a scale no team can match.",
+      positionB:"People will stay ahead. The best ideas need human insight." },
+    { original:"Does marketing mix modeling (MMM) or experimentation give better answers than click-based attribution?",
+      question:"What's the best way to know whether marketing works: tracking clicks, or using statistical models and experiments?",
+      background:"Click-based attribution follows individual users from an ad to a purchase. “Marketing mix modeling” (MMM) uses statistics to estimate how total sales respond to spending across all channels, including TV, without tracking individuals. Experiments randomly show ads to some people and not others and compare the results. Each method has strengths and weaknesses, and the industry is debating which to trust.",
+      positionA:"Models and experiments. They measure what the advertising actually caused.",
+      positionB:"Click tracking. It gives fast, detailed feedback marketers can act on." }
+    ]},
+  { id:"mkt-ba", name:"Branding and Advertising",
+    about:"How companies build brands, meaning the reputation and associations attached to a name, and how advertising shapes what people think and buy.",
+    terms:["brand equity","brand building","performance marketing","Binet and Field","purpose-driven marketing","brand loyalty","Byron Sharp","television advertising","brand activism"],
+    questions:[
+    { original:"Does brand-building still pay off, or has performance marketing taken over?",
+      question:"Does long-term brand-building still pay off, or has advertising aimed at immediate sales taken over?",
+      background:"“Brand-building” aims to create lasting memories and associations; think of Nike's “Just Do It.” “Performance marketing” aims for an immediate, measurable action, like clicking a “buy now” ad. Because performance marketing is easier to measure, budgets have shifted toward it. Research by Les Binet and Peter Field suggests the most effective balance is roughly 60% brand-building and 40% short-term sales activity.",
+      positionA:"Brand-building still pays. It drives long-term growth.",
+      positionB:"Performance marketing has won. Measurable results matter most." },
+    { original:"Does purpose-driven branding help sales, or create backlash risk?",
+      question:"Does tying a brand to a social or environmental cause increase sales, or create a risk of backlash?",
+      background:"Purpose-driven brands tie themselves to a cause, as Patagonia has with environmental protection. Some research suggests consumers, especially younger ones, favor such brands. But in 2023, Bud Light's promotion with a transgender influencer led to a boycott and a lasting drop in sales, and other brands have been criticized for adopting causes they don't really act on.",
+      positionA:"It helps sales. Consumers reward brands that stand for something.",
+      positionB:"It's risky. Taking sides alienates customers." },
+    { original:"Is brand loyalty declining?",
+      question:"Is brand loyalty declining?",
+      background:"Some evidence suggests consumers switch brands more than they used to: store brands have grown, online shopping makes comparing easy, and during the pandemic many people tried new brands when their usual ones were out of stock. But researchers such as Byron Sharp argue that brand loyalty was always weaker than marketers believed, since most buyers of any brand also buy its competitors.",
+      positionA:"Declining. Consumers switch brands more easily than ever.",
+      positionB:"Not really. Loyalty was always weaker than assumed, and strong brands still hold their customers." },
+    { original:"Does TV and traditional advertising still matter for younger audiences?",
+      question:"Do TV and other traditional advertising still matter for younger audiences?",
+      background:"Younger people watch far less traditional television, spending more time on YouTube, TikTok, and streaming services. Advertising budgets have shifted heavily toward digital. Yet live sports still draw large young audiences, and research suggests TV ads remain effective at building brands because they reach many people at once on a large screen.",
+      positionA:"Still matters. Big-screen, shared moments still reach young people.",
+      positionB:"No longer matters. Young audiences are found online." },
+    { original:"Should brands take public stances on social issues?",
+      question:"Should brands take public positions on social and political issues?",
+      background:"Some companies publicly take positions on issues such as voting rights, climate change, or immigration. Supporters argue that employees and younger customers expect companies to have values. Critics argue that companies alienate customers who disagree, and that executives shouldn't use company resources to promote their personal views. Many companies became noticeably quieter on social issues in 2024 and 2025.",
+      positionA:"Yes. Staying silent is itself a position.",
+      positionB:"No. Brands should stick to their products." }
+    ]},
+  { id:"mkt-in", name:"Influencer Marketing",
+    about:"How brands work with social-media creators to reach audiences, and how the creator economy works as a business.",
+    terms:["influencer marketing","micro-influencers","engagement rate","creator economy","FTC endorsement guides","sponsored content disclosure","virtual influencers","parasocial relationships"],
+    questions:[
+    { original:"Do influencers drive sales, or mostly awareness that's hard to measure?",
+      question:"Do influencers actually drive sales, or mostly create awareness that is hard to measure?",
+      background:"Brands now spend tens of billions of dollars a year worldwide on influencer marketing. Some campaigns use discount codes or tracked links, so their sales can be measured directly. But much of the effect, such as people learning about a brand or developing a good impression of it, is hard to connect to sales. Some brands report strong returns; others struggle to show any.",
+      positionA:"They drive sales. Trusted recommendations lead to purchases.",
+      positionB:"Mostly awareness. The effect on sales is hard to prove." },
+    { original:"Are micro-influencers more effective than celebrities?",
+      question:"Are influencers with small, dedicated followings more effective than celebrities?",
+      background:"“Micro-influencers” usually have between about 10,000 and 100,000 followers. They often get more likes and comments per follower, and their audiences may trust them more. Celebrities reach far more people, but their endorsements can feel less personal. Brands have to choose between reach and closeness.",
+      positionA:"Smaller influencers. Trust and engagement matter more than reach.",
+      positionB:"Celebrities. Reach and fame still sell." },
+    { original:"Do disclosure rules (“#ad”) reduce influencer effectiveness?",
+      question:"Do rules requiring influencers to label paid posts (for example, “#ad”) make those posts less effective?",
+      background:"The Federal Trade Commission requires influencers to clearly disclose when they are paid to promote a product. Some research suggests that a disclosure makes viewers recognize a post as advertising and trust it less. Other research suggests honest disclosure can increase trust in the influencer over time.",
+      positionA:"Yes. Labeling an ad as an ad weakens its persuasive power.",
+      positionB:"No. Honesty maintains trust, which helps in the long run." },
+    { original:"Will virtual and AI influencers be trusted by consumers?",
+      question:"Will consumers trust influencers who are computer-generated or created by AI?",
+      background:"Virtual influencers are computer-generated characters with social-media accounts. Lil Miquela, a virtual character created in 2016, has millions of followers and has worked with brands such as Prada and Calvin Klein. AI now makes such characters cheaper and more realistic. Brands get complete control and no risk of scandal. But some research suggests audiences trust them less than human creators.",
+      positionA:"Yes. People already form connections with fictional characters.",
+      positionB:"No. Influence depends on being a real person." },
+    { original:"Is the creator economy a sustainable career path or a winner-take-all market?",
+      question:"Is being a content creator a sustainable career, or a market where only a few people win big?",
+      background:"Millions of people post content hoping to earn a living. A small share of creators earns most of the income, while most earn little or nothing. Creators also depend on platforms that can change their algorithms or payment rules at any time. Still, platforms have added more ways to earn money, such as subscriptions and tips.",
+      positionA:"A sustainable career. More ways to earn are opening up.",
+      positionB:"Winner-take-all. A few earn most of the money while the rest struggle." }
+    ]},
+  { id:"mkt-pr", name:"Pricing and Retail",
+    about:"How companies set prices and how stores and online retailers sell to consumers, and when pricing practices become unfair.",
+    terms:["dynamic pricing","personalized pricing","price discrimination","subscription economy","click-to-cancel","omnichannel retail","drip pricing","junk fees","retail media networks"],
+    questions:[
+    { original:"Is dynamic and personalized pricing efficient or unfair?",
+      question:"Are prices that change based on demand, or based on who you are, efficient or unfair?",
+      background:"“Dynamic pricing” changes prices based on demand, like Uber's surge pricing or airline fares. “Personalized pricing” goes further, charging different people different prices based on data about them. Economists note that dynamic pricing can help balance supply and demand. But consumers often see it as unfair, as when Ticketmaster's demand-based prices for the 2024 Oasis reunion tour caused a public outcry in the U.K.",
+      positionA:"Efficient. Prices that track demand send goods where they are most valued.",
+      positionB:"Unfair. Charging people more because they want something more is exploitation." },
+    { original:"Do subscription models create value for customers, or lock them in?",
+      question:"Do subscriptions give customers more value, or lock them in?",
+      background:"Many products are now sold by subscription: software, streaming, meal kits, even features in cars. Subscriptions give companies predictable revenue and can give customers convenience and lower upfront costs. But many people pay for subscriptions they forget about or find hard to cancel. The Federal Trade Commission sued Amazon over how hard it was to cancel Prime, and Amazon agreed to a $2.5 billion settlement in 2025.",
+      positionA:"More value. Convenience and lower upfront costs benefit customers.",
+      positionB:"Lock-in. Companies profit from forgotten subscriptions and difficult cancellations." },
+    { original:"Will physical retail survive, and in what form?",
+      question:"Will physical stores survive, and in what form?",
+      background:"Online shopping now accounts for about 16% of U.S. retail sales, and many malls and store chains have closed. Yet most shopping still happens in physical stores, and online-first brands like Warby Parker have opened their own stores. Stores increasingly serve as showrooms, pickup points, and places for experiences.",
+      positionA:"They will thrive. People still want to see, touch, and try products.",
+      positionB:"They will shrink to a niche. Convenience will keep pulling shopping online." },
+    { original:"Do “drip pricing” and hidden fees exploit consumers, and should they be banned?",
+      question:"Do hidden fees that appear late in the checkout process take advantage of consumers, and should they be banned?",
+      background:"“Drip pricing” means advertising a low price and adding mandatory fees later, such as hotel “resort fees” or service fees on concert tickets. Research finds consumers end up paying more than when the full price is shown up front. A Federal Trade Commission rule that took effect in 2025 requires the total price to be shown up front for live-event tickets and short-term lodging.",
+      positionA:"Ban them. The advertised price should be the real price.",
+      positionB:"Disclosure is enough. Consumers can see the fees before they pay." },
+    { original:"Do retail media networks (like Amazon's ad business) benefit shoppers or just platforms?",
+      question:"Do advertising businesses run by retailers, like the sponsored listings on Amazon, benefit shoppers or just the retailers?",
+      background:"“Retail media networks” sell advertising space on retailers' own websites and apps, such as the sponsored products at the top of Amazon search results. Amazon earned over $56 billion from advertising in 2024, and Walmart, Target, and others have followed. Retailers say the ads help shoppers discover products. Critics argue that sponsored listings push more relevant results down the page and raise costs for sellers, who pass them on through higher prices.",
+      positionA:"They benefit shoppers. Ads help people discover relevant products.",
+      positionB:"They benefit retailers. Shoppers see ads instead of the best results, and prices rise." }
+    ]}
+  ]}
+];
+/* ===================== END OF QUESTION BANK ===================== */
+
+const SUBS = {}, QS = {};
+FIELDS.forEach(f => f.subfields.forEach(s => {
+  s.field = f; SUBS[s.id] = s;
+  s.questions.forEach((q, i) => { q.id = s.id + "-" + (i + 1); q.sub = s; QS[q.id] = q; });
+}));
+const TOTAL_Q = Object.keys(QS).length;
+
+const app = document.getElementById("app");
+const KEY = "faculty-quiz-v1";
+
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function shuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function pick(a){ return a[Math.floor(Math.random() * a.length)]; }
+
+function fresh(){
+  const seed = {};
+  FIELDS.forEach(f => { seed[f.id] = Math.random(); f.subfields.forEach(s => seed[s.id] = Math.random()); });
+  return { view:"intro", stage:0, queue:[], pos:0, answers:{}, topFields:[], deep:[], exploring:null, seed };
+}
+function load(){
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (!s || !s.answers || !s.seed) return null;
+    if (s.queue.some(id => !QS[id]) || Object.keys(s.answers).some(id => !QS[id])) return null;
+    return s;
+  } catch (e) { return null; }
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+let state = load() || fresh();
+
+/* ---------- scoring ---------- */
+const complete = a => a && a.s !== undefined && a.i !== undefined;
+function qScore(a){ return a.i + 0.5 * Math.abs(a.s); }   // interest 1–5 plus up to 1 point for a strong opinion
+function statsFor(questions){
+  let n = 0, sum = 0, conv = 0;
+  questions.forEach(q => { const a = state.answers[q.id]; if (complete(a)){ n++; sum += qScore(a); conv += Math.abs(a.s); } });
+  return { n, avg: n ? sum / n : 0, conv };
+}
+const subStats = s => statsFor(s.questions);
+const fieldStats = f => statsFor(f.subfields.flatMap(s => s.questions));
+function rank(items, fn){
+  return items.map(x => ({ x, st: fn(x) }))
+    .sort((p, q) => (q.st.avg - p.st.avg) || (q.st.conv - p.st.conv) || (state.seed[q.x.id] - state.seed[p.x.id]))
+    .map(o => o.x);
+}
+const unasked = s => s.questions.filter(q => !state.answers[q.id]);
+
+/* ---------- stage builders ---------- */
+function buildStage1(){
+  const q = [];
+  FIELDS.forEach(f => shuffle(f.subfields).slice(0, 2).forEach(s => q.push(pick(s.questions).id)));
+  return shuffle(q);
+}
+function buildStage2(){
+  const top = rank(FIELDS, fieldStats).slice(0, 2);
+  state.topFields = top.map(f => f.id);
+  const q = [];
+  top.forEach(f => f.subfields.forEach(s => { const u = unasked(s); if (u.length) q.push(pick(u).id); }));
+  return shuffle(q);
+}
+function buildStage3(){
+  const pool = FIELDS.filter(f => state.topFields.includes(f.id)).flatMap(f => f.subfields);
+  const top = rank(pool, subStats).slice(0, 3);
+  state.deep = top.map(s => s.id);
+  return shuffle(top.flatMap(s => unasked(s).map(q => q.id)));
+}
+
+/* ---------- flow ---------- */
+function go(view){ state.view = view; save(); render(); window.scrollTo(0, 0); const h = app.querySelector("h1,h2"); if (h){ h.setAttribute("tabindex", "-1"); h.focus({ preventScroll:true }); } }
+function start(){ state = fresh(); state.stage = 1; state.queue = buildStage1(); state.pos = 0; go("quiz"); }
+function next(){
+  if (!complete(state.answers[state.queue[state.pos]])) return;
+  if (state.pos < state.queue.length - 1){ state.pos++; go("quiz"); return; }
+  if (state.stage === 1){ state.stage = 2; state.queue = buildStage2(); state.pos = 0; go("break"); }
+  else if (state.stage === 2){ state.stage = 3; state.queue = buildStage3(); state.pos = 0; state.queue.length ? go("break") : go("results"); }
+  else if (state.stage === "explore"){ if (!state.deep.includes(state.exploring)) state.deep.push(state.exploring); state.exploring = null; go("results"); }
+  else go("results");
+}
+function back(){ if (state.pos > 0){ state.pos--; go("quiz"); } }
+function explore(id){
+  const s = SUBS[id]; if (!s) return;
+  const u = unasked(s);
+  if (!u.length){ if (!state.deep.includes(id)) state.deep.push(id); go("results"); return; }
+  state.stage = "explore"; state.exploring = id; state.queue = shuffle(u.map(q => q.id)); state.pos = 0; go("quiz");
+}
+
+/* ---------- views ---------- */
+function topbar(extra){
+  return `<div class="topbar no-print"><span class="brand">Business Faculty Appointments</span><span class="actions">${extra || ""}</span></div>`;
+}
+const resetBtn = `<button type="button" class="linkish" data-action="reset">Start over</button>`;
+
+function renderIntro(){
+  app.innerHTML = `
+    ${topbar(`<button type="button" class="linkish" data-action="review">Instructor view: all ${TOTAL_Q} questions</button>`)}
+    <div class="stack">
+      <h1>Which business professorship fits you?</h1>
+      <p class="lede">You'll answer about 30 questions on real debates in business. Each one asks where you stand and how interested you'd be in researching it. At the end, you'll be appointed professor of one field, with a specialty, and you'll get the research questions you'll represent.</p>
+    </div>
+    <div class="panel">
+      <ol class="steps">
+        <li><span class="n">1</span><div><b>Ten questions from across business</b><span class="muted">Accountancy, economics, finance, management, and marketing. These point toward the two fields that fit you best.</span></div></li>
+        <li><span class="n">2</span><div><b>Ten questions inside those two fields</b><span class="muted">One from each specialty, to find which specialties interest you most.</span></div></li>
+        <li><span class="n">3</span><div><b>The remaining questions in your top three specialties</b><span class="muted">These decide your final appointment.</span></div></li>
+      </ol>
+    </div>
+    <div class="stack small muted">
+      <p>Every question has two positions. You can agree strongly with either one, lean toward one, or say you're undecided. There are no right answers, and nothing is graded. Field names stay hidden until the end so they don't steer your answers.</p>
+      <p>Your progress is saved in this browser, so you can close the page and come back.</p>
+    </div>
+    <div class="actions"><button type="button" class="btn" data-action="start">Start the quiz</button></div>`;
+}
+
+function renderBreak(){
+  const n = state.queue.length;
+  const copy = state.stage === 2
+    ? { h:"Part 2 of 3", p:`Ten more questions. Based on part 1, these narrow down which specialties interest you most.` }
+    : { h:"Part 3 of 3", p:`${n} final questions, drawn from your three highest-scoring specialties. These decide your appointment.` };
+  app.innerHTML = `
+    ${topbar(resetBtn)}
+    <div class="stack">
+      <h2>${copy.h}</h2>
+      <p class="lede">${copy.p}</p>
+    </div>
+    <div class="actions"><button type="button" class="btn" data-action="continue">Continue</button></div>`;
+}
+
+const STANCE = [
+  { v:-2, top:"Strongly", bot:"A", cls:"a", label:"Strongly agree with Position A" },
+  { v:-1, top:"Lean", bot:"A", cls:"a", label:"Lean toward Position A" },
+  { v:0,  top:"Undecided", bot:"", cls:"mid", label:"Undecided between the two positions" },
+  { v:1,  top:"Lean", bot:"B", cls:"b", label:"Lean toward Position B" },
+  { v:2,  top:"Strongly", bot:"B", cls:"b", label:"Strongly agree with Position B" }
+];
+const INTEREST = [[1,"Not at all"],[2,"A little"],[3,"Somewhat"],[4,"Quite"],[5,"Very"]];
+
+function renderQuiz(){
+  const id = state.queue[state.pos], q = QS[id];
+  if (!q){ go("intro"); return; }
+  const a = state.answers[id] || {};
+  const total = state.queue.length, last = state.pos === total - 1;
+  const explore = state.stage === "explore";
+  const parts = explore
+    ? `<span class="on">Extra specialty</span>`
+    : [1,2,3].map(n => `<span class="${n === state.stage ? "on" : n < state.stage ? "done" : ""}">Part ${n}</span>`).join("");
+  let nextLabel = "Next question";
+  if (last) nextLabel = (state.stage === 3 || explore) ? "See my appointment" : "Finish part " + state.stage;
+  app.innerHTML = `
+    ${topbar(resetBtn)}
+    <div class="qhead">
+      <div class="parts" aria-label="Quiz parts">${parts}</div>
+      <div class="prog"><span>Question ${state.pos + 1} of ${total}</span><div class="bar" aria-hidden="true"><i style="width:${(state.pos + 1) / total * 100}%"></i></div></div>
+    </div>
+    <h2>${esc(q.question)}</h2>
+    <div class="bg"><div class="bg-label">Background</div><p>${esc(q.background)}</p></div>
+    <fieldset>
+      <legend>Where do you stand?</legend>
+      <div class="sides">
+        <div class="side a"><span class="tag">Position A</span>${esc(q.positionA)}</div>
+        <div class="side b"><span class="tag">Position B</span>${esc(q.positionB)}</div>
+      </div>
+      <div class="scale">
+        ${STANCE.map((o, k) => `<label class="seg ${o.cls}"><input type="radio" name="stance" id="stance-${k}" value="${o.v}" aria-label="${o.label}" ${a.s === o.v ? "checked" : ""}><span>${o.top}${o.bot ? `<b>${o.bot}</b>` : ""}</span></label>`).join("")}
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>How interested would you be in researching this question?</legend>
+      <div class="scale">
+        ${INTEREST.map(([v, l]) => `<label class="seg int"><input type="radio" name="interest" id="interest-${v}" value="${v}" aria-label="${v} of 5: ${l}" ${a.i === v ? "checked" : ""}><span><b>${v}</b>${l}</span></label>`).join("")}
+      </div>
+    </fieldset>
+    <div class="qnav">
+      <button type="button" class="btn ghost" data-action="back" ${state.pos === 0 ? "disabled" : ""}>Back</button>
+      <span class="hint" id="hint">${complete(a) ? "" : "Choose a position and an interest level to continue."}</span>
+      <button type="button" class="btn" id="nextBtn" data-action="next" ${complete(a) ? "" : "disabled"}>${nextLabel}</button>
+    </div>`;
+}
+
+function positionLine(q){
+  const a = state.answers[q.id];
+  if (!complete(a)) return { text:"Not answered.", cls:"" };
+  if (a.s === 0) return { text:"You were <em>undecided</em> between the two positions.", cls:"" };
+  const side = a.s < 0 ? q.positionA : q.positionB;
+  const verb = Math.abs(a.s) === 2 ? "strongly agreed with" : "leaned toward";
+  return { text:`You ${verb} ${a.s < 0 ? "Position A" : "Position B"}: <em>${esc(side)}</em>`, cls: a.s < 0 ? "a" : "b" };
+}
+
+function renderResults(){
+  const deepSubs = state.deep.map(id => SUBS[id]).filter(Boolean);
+  if (!deepSubs.length){ go("intro"); return; }
+  const ranked = rank(deepSubs, subStats);
+  const win = ranked[0], others = ranked.slice(1);
+  const answered = Object.values(state.answers).filter(complete).length;
+  const agenda = win.questions.map((q, k) => ({ q, k, a: state.answers[q.id] }))
+    .sort((x, y) => ((y.a ? y.a.i : 0) - (x.a ? x.a.i : 0)) || (x.k - y.k));
+  const fieldRank = rank(FIELDS, fieldStats);
+  const bar = (label, st, isWin) => `<div class="brow ${isWin ? "win" : ""}"><span class="lbl">${esc(label)}</span><span class="trk"><i style="width:${(st.avg / 6 * 100).toFixed(1)}%"></i></span><span class="val">${st.avg.toFixed(1)}</span></div>`;
+  const remaining = FIELDS.map(f => {
+    const opts = f.subfields.filter(s => !state.deep.includes(s.id)).map(s => `<option value="${s.id}">${esc(s.name)}</option>`).join("");
+    return opts ? `<optgroup label="${esc(f.name)}">${opts}</optgroup>` : "";
+  }).join("");
+
+  app.innerHTML = `
+    ${topbar(resetBtn)}
+    <div class="appointment">
+      <div class="appointment-inner">
+        <span class="kicker">Faculty appointment</span>
+        <h1>Professor of ${esc(win.field.name)}</h1>
+        <span class="spec">specializing in ${esc(win.name)}</span>
+        <span class="basis">Based on your answers to ${answered} questions</span>
+      </div>
+    </div>
+
+    <section class="stack">
+      <h3>Your field</h3>
+      <p>${esc(win.field.about)}</p>
+      <p><strong>${esc(win.name)}:</strong> ${esc(win.about)}</p>
+    </section>
+
+    <section class="stack">
+      <h3>Your research questions</h3>
+      <p class="muted small">These are the five questions your specialty debates, ordered by how interested you said you were. Your answers are your starting positions. Your research should test them by finding the strongest evidence on both sides.</p>
+      <ol class="agenda">
+        ${agenda.map(({ q, a }) => { const p = positionLine(q); return `
+          <li>
+            <span class="rq">${esc(q.original)}</span>
+            <span class="pos">${p.text}</span>
+            <span class="meta"><span class="pill">Interest ${a ? a.i : "–"} of 5</span>${p.cls ? `<span class="pill ${p.cls}">${Math.abs(a.s) === 2 ? "Strong" : "Leaning"} opinion</span>` : `<span class="pill">Undecided</span>`}</span>
+          </li>`; }).join("")}
+      </ol>
+    </section>
+
+    <section class="stack">
+      <h3>Search terms to start with</h3>
+      <div class="chips">${win.terms.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>
+    </section>
+
+    <section class="stack">
+      <h3>Close runners-up</h3>
+      <div class="panel">
+        ${others.map(s => `<div class="runner"><b>${esc(s.field.name)}: ${esc(s.name)}</b><span class="muted small">${esc(s.about)}</span></div>`).join("")}
+      </div>
+    </section>
+
+    <section class="stack">
+      <h3>How your scores came out</h3>
+      <p class="muted small">Each answer scores 1 to 6: your interest rating (1–5), plus up to one extra point for a strong opinion on either side. Bars show your average per question. Your appointment is the specialty with the highest average among the ones where you answered all five questions.</p>
+      <div class="panel stack">
+        <span class="small"><strong>Specialties you completed</strong></span>
+        <div class="bars">${ranked.map((s, k) => bar(s.name, subStats(s), k === 0)).join("")}</div>
+        <span class="small" style="margin-top:8px"><strong>Fields</strong></span>
+        <div class="bars">${fieldRank.map(f => bar(f.name, fieldStats(f), f === win.field)).join("")}</div>
+      </div>
+    </section>
+
+    ${remaining ? `<section class="stack no-print">
+      <h3>Explore another specialty</h3>
+      <p class="muted small">Curious about a different area? Answer its remaining questions. If it outscores your current specialty, your appointment will change.</p>
+      <div class="actions">
+        <label for="explore-select" class="small" style="position:absolute;left:-9999px">Choose a specialty</label>
+        <select id="explore-select"><option value="">Choose a specialty…</option>${remaining}</select>
+        <button type="button" class="btn ghost" id="exploreBtn" data-action="explore" disabled>Answer its questions</button>
+      </div>
+    </section>` : ""}`;
+}
+
+function renderReview(){
+  const nav = FIELDS.map(f => `<button type="button" class="btn ghost small" data-action="jump" data-target="rv-${f.id}">${esc(f.name)}</button>`).join("");
+  app.innerHTML = `
+    ${topbar(`<button type="button" class="linkish" data-action="quiz">Back to the quiz</button>`)}
+    <div class="stack">
+      <h1>All ${TOTAL_Q} questions</h1>
+      <p class="lede">Every question in the bank, grouped by field and specialty, with the wording students see, the background they read, and the two positions they choose between.</p>
+    </div>
+    <div class="panel stack small">
+      <strong>How the quiz works</strong>
+      <p><b>Part 1 (10 questions):</b> two questions from each of the five fields, each from a different randomly chosen specialty, shown in random order without field labels. The two fields with the highest average score go forward.</p>
+      <p><b>Part 2 (10 questions):</b> one unanswered question from each of the ten specialties in those two fields. The three specialties with the highest average score go forward.</p>
+      <p><b>Part 3 (about 9–12 questions):</b> every remaining question in those three specialties, so the student has answered all five in each. The highest-scoring of the three becomes the appointment; the other two are listed as runners-up.</p>
+      <p><b>Scoring:</b> each answer = interest rating (1–5) + 0.5 × opinion strength (0 for undecided, 1 for leaning, 2 for strongly agreeing with either side). That gives 1 to 6 per question. Rankings use the average per question; ties go to the area with stronger opinions, then to a random order fixed for each student.</p>
+      <p><b>Afterward:</b> students can complete any other specialty from the results page. Their appointment is always the highest-scoring specialty among those they completed.</p>
+      <p><b>Editing:</b> all questions live in the <code>FIELDS</code> list at the top of the page's script. Question IDs (such as ACC-FR-1) come from their position in that list.</p>
+    </div>
+    <div class="jump no-print">${nav}</div>
+    ${FIELDS.map(f => `
+      <section class="rv-field" id="rv-${f.id}">
+        <h2>${esc(f.name)}</h2>
+        <p class="muted">${esc(f.about)}</p>
+        ${f.subfields.map(s => `
+          <div class="rv-sub">
+            <div class="rv-head">
+              <h3 class="rv-title">${esc(s.name)}</h3>
+              <p class="small">${esc(s.about)}</p>
+              <p class="small muted"><strong>Search terms:</strong> ${s.terms.map(esc).join(" · ")}</p>
+            </div>
+            ${s.questions.map(q => `
+              <dl class="rv-q">
+                <span class="qid">${q.id.toUpperCase()}</span>
+                <dt>Original</dt><dd>${esc(q.original)}</dd>
+                <dt>Student sees</dt><dd class="prompt">${esc(q.question)}</dd>
+                <dt>Background</dt><dd>${esc(q.background)}</dd>
+                <dt>Position A</dt><dd class="pa">${esc(q.positionA)}</dd>
+                <dt>Position B</dt><dd class="pb">${esc(q.positionB)}</dd>
+              </dl>`).join("")}
+          </div>`).join("")}
+      </section>`).join("")}`;
+}
+
+function isReview(){
+  return location.hash === "#review" || (!location.hash && new URLSearchParams(location.search).has("review"));
+}
+function render(){
+  if (isReview()) return renderReview();
+  ({ intro:renderIntro, quiz:renderQuiz, break:renderBreak, results:renderResults }[state.view] || renderIntro)();
+}
+
+/* ---------- events ---------- */
+let resetTimer = null;
+app.addEventListener("click", e => {
+  const b = e.target.closest("[data-action]"); if (!b) return;
+  const act = b.dataset.action;
+  if (act === "start") start();
+  else if (act === "next") next();
+  else if (act === "back") back();
+  else if (act === "continue") go("quiz");
+  else if (act === "review"){ location.hash = "review"; }
+  else if (act === "quiz"){ location.hash = "quiz"; }
+  else if (act === "jump"){ const t = document.getElementById(b.dataset.target); if (t) t.scrollIntoView({ behavior:"smooth" }); }
+  else if (act === "explore"){ const v = document.getElementById("explore-select").value; if (v) explore(v); }
+  else if (act === "reset"){
+    if (b.dataset.armed){ clearTimeout(resetTimer); state = fresh(); go("intro"); }
+    else { b.dataset.armed = "1"; b.textContent = "Click again to erase all answers"; resetTimer = setTimeout(() => { if (b.isConnected){ delete b.dataset.armed; b.textContent = "Start over"; } }, 4000); }
+  }
+});
+app.addEventListener("change", e => {
+  const t = e.target;
+  if (t.name === "stance" || t.name === "interest"){
+    const id = state.queue[state.pos];
+    const a = state.answers[id] || (state.answers[id] = {});
+    if (t.name === "stance") a.s = Number(t.value); else a.i = Number(t.value);
+    save();
+    const ok = complete(a);
+    document.getElementById("nextBtn").disabled = !ok;
+    document.getElementById("hint").textContent = ok ? "" : "Choose a position and an interest level to continue.";
+  }
+  if (t.id === "explore-select") document.getElementById("exploreBtn").disabled = !t.value;
+});
+window.addEventListener("hashchange", () => { render(); window.scrollTo(0, 0); });
+render();
+</script>
+
+</body>
+</html>
