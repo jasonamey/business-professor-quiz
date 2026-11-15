@@ -95,6 +95,7 @@ legend{font-weight:600;font-size:1rem;padding:0;margin-bottom:12px}
 .hint{font-size:.85rem;color:var(--muted)}
 
 /* results */
+.save-row{justify-content:center}
 .appointment{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px}
 .appointment-inner{border:1px solid var(--accent);border-radius:8px;padding:28px 24px;display:flex;flex-direction:column;gap:6px;text-align:center;align-items:center}
 .appointment .kicker{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
@@ -152,7 +153,7 @@ code{font-size:.9em;background:var(--accent-soft);padding:1px 5px;border-radius:
   .appointment h1{font-size:1.8rem}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-@media print{.no-print{display:none!important}body{background:#fff}.rv-q,.agenda li,.panel{border-color:#999}}
+@media print{:root:root:root{--bg:#fff;--surface:#fff;--ink:#000;--muted:#333;--line:#999;--accent:#1F4E79;--accent-ink:#fff;--accent-soft:#E3EBF4;color-scheme:light}.no-print{display:none!important}body{background:#fff}.rv-q,.agenda li,.panel{border-color:#999}}
 </style>
 
 <div id="app" class="wrap" aria-live="polite"></div>
@@ -205,13 +206,13 @@ const FIELDS = [
     ]},
   { id:"acc-au", name:"Auditing",
     about:"How independent accountants check whether a company's financial statements are accurate, and how to keep those checkers honest and effective.",
-    terms:["external audit","auditor independence","PCAOB","Sarbanes-Oxley Act","Big Four accounting firms","mandatory audit firm rotation","reasonable assurance","audit expectation gap","audit data analytics"],
+    terms:["external audit","auditor independence","PCAOB","Sarbanes-Oxley Act","Big Four accounting firms","mandatory audit firm rotation","reasonable assurance","audit expectation gap","audit sampling","audit data analytics"],
     questions:[
-    { original:"Will AI and full-population testing improve audit quality, or create risks auditors can't see?",
-      question:"Will artificial intelligence that can check every single transaction make audits better, or create new risks that auditors can't see?",
-      background:"Auditors have traditionally been unable to check every transaction, so they test a sample and draw conclusions from it. AI and data-analysis tools now make it possible to examine the “full population” of transactions. That could catch more errors. But auditors may come to trust tools they don't fully understand, and an AI system may miss problems it was never designed to recognize.",
-      positionA:"Better audits. Checking everything beats checking a sample.",
-      positionB:"Hidden risks. Auditors could end up relying on tools they don't understand." },
+    { original:"Does audit technology, from statistical sampling to data analytics, actually improve audit quality?",
+      question:"Do new audit technologies, from statistical sampling decades ago to data analytics and AI today, actually make audits better?",
+      background:"Auditors can't check every transaction, so for decades they have tested samples and used statistical methods to draw conclusions about the rest. Each new technology, from computers to data analytics and now AI, has promised better audits. Researchers study whether these tools actually catch more errors, or whether auditors come to over-rely on tools they don't fully understand.",
+      positionA:"Better audits. Each generation of tools lets auditors see more.",
+      positionB:"Mixed results. Tools help only as much as the auditor's judgment." },
     { original:"Does mandatory auditor rotation protect independence, or throw away valuable client knowledge?",
       question:"Should companies be required to switch to a different audit firm every several years?",
       background:"An auditor is paid by the company it audits. After many years together, critics worry, the auditor becomes too comfortable with management to challenge it. The European Union requires large public companies to change audit firms, generally after 10 years. The U.S. requires only that the lead audit partner change every five years. Opponents argue that a new firm needs years to learn a complex business, and that errors are more common in the first years of a new audit relationship.",
@@ -235,18 +236,18 @@ const FIELDS = [
     ]},
   { id:"acc-tx", name:"Taxation",
     about:"How governments tax businesses, how businesses plan around taxes, and how tax rules shape investment and behavior.",
-    terms:["corporate income tax","profit shifting","tax havens","OECD Pillar Two","global minimum tax","digital services tax","Tax Cuts and Jobs Act","tax avoidance vs. tax evasion","tax expenditures"],
+    terms:["corporate income tax","profit shifting","tax havens","transfer pricing","OECD Pillar Two","global minimum tax","digital services tax","source vs. residence taxation","Tax Cuts and Jobs Act","tax avoidance vs. tax evasion","tax expenditures"],
     questions:[
-    { original:"Will a global minimum corporate tax end profit shifting, or just move it elsewhere?",
-      question:"Will a worldwide minimum tax on large corporations stop them from moving their profits to low-tax countries?",
-      background:"Multinational companies can legally record profits in countries with low taxes. For example, a company might have an Irish subsidiary own its patents and charge its other subsidiaries fees for using them. This is called “profit shifting.” In 2021, about 140 countries agreed to a 15% global minimum tax on large multinationals (the OECD's “Pillar Two”). The U.S. has not adopted it, and in 2025 it negotiated an exemption for U.S.-based companies.",
-      positionA:"It will largely work. If every country charges at least 15%, shifting profits stops paying off.",
-      positionB:"It will just move the problem. Companies will find new loopholes and countries will compete in other ways." },
-    { original:"Should digital companies be taxed where their users are, or where the company is based?",
-      question:"Should digital companies pay taxes in the countries where their users live, or where the company is based?",
-      background:"Traditional tax rules tax a company where it has a physical presence, such as offices or factories. But a company like Meta or Google can earn large advertising revenue from users in France with little physical presence there. Several countries, including France and the U.K., created “digital services taxes” on that revenue. The U.S. has called these taxes unfair to American companies and has threatened retaliation.",
-      positionA:"Where the users are. That is where the value is created.",
-      positionB:"Where the company is based. That is where the work, investment, and risk-taking happen." },
+    { original:"Do multinational companies shift profits to low-tax countries, and can global rules stop it?",
+      question:"Do large multinational companies move their profits to low-tax countries, and can international rules stop them?",
+      background:"Multinationals can book profits in countries with low tax rates, for example by having a subsidiary in a tax haven own valuable patents and charge the rest of the company for using them. Economists have studied this “profit shifting” for decades. In 2021, more than 130 countries agreed in principle to a 15% global minimum corporate tax to limit it, but critics say companies will find new ways around the rules.",
+      positionA:"Rules can stop it. A global minimum leaves little reason to shift profits.",
+      positionB:"It will just move. Companies and their advisers will find new loopholes." },
+    { original:"Should multinational companies be taxed where they sell, or where they are based?",
+      question:"Should a multinational company pay taxes where its customers are, or where the company is based?",
+      background:"Traditionally, companies are taxed mainly where they are based and where they produce. But a company can sell a great deal in a country, like a streaming service or a search engine, while having few employees or offices there. Some countries have responded with “digital services taxes” on revenue earned from local users. The broader question, whether to tax companies where their customers are, is one tax economists have debated for decades.",
+      positionA:"Where they sell. Countries should tax profits earned from their customers.",
+      positionB:"Where they are based. That's where the work and investment happen." },
     { original:"Do corporate tax cuts boost investment and wages, or mainly shareholder payouts?",
       question:"When governments cut corporate taxes, do companies invest more and raise wages, or mostly pay out more to shareholders?",
       background:"The 2017 Tax Cuts and Jobs Act cut the U.S. corporate tax rate from 35% to 21%. Supporters predicted more investment in equipment and factories, which would lead to higher wages. Studies since then find that investment rose somewhat, but wage gains were smaller than promised, and companies bought back record amounts of their own stock. Economists still debate how much of the benefit reached workers.",
@@ -295,13 +296,13 @@ const FIELDS = [
     ]},
   { id:"acc-fo", name:"Forensic Accounting",
     about:"How accountants and investigators detect, investigate, and prevent financial fraud, and how they present financial evidence in court.",
-    terms:["forensic accounting","fraud detection","fraud triangle","fraud diamond","SEC whistleblower program","Benford's law","textual analysis of annual reports","blockchain analytics","Association of Certified Fraud Examiners"],
+    terms:["forensic accounting","fraud detection","fraud triangle","fraud diamond","fraud prediction models","Beneish M-score","whistleblowers","short sellers","Benford's law","textual analysis of annual reports"],
     questions:[
-    { original:"Can analytics and AI detect fraud before it happens, or only after the damage is done?",
-      question:"Can data analysis and artificial intelligence catch fraud before it causes damage, or only afterward?",
-      background:"Fraud is often discovered long after it begins. The Association of Certified Fraud Examiners reports that a typical fraud goes on for about a year before it is detected. Data tools can now flag unusual patterns as they happen, such as a series of payments just under an approval limit. But fraudsters adapt, and AI systems can produce many false alarms or miss new schemes entirely.",
-      positionA:"Before. Real-time monitoring can stop fraud while it is happening.",
-      positionB:"Only after. Fraudsters adapt faster than detection tools improve." },
+    { original:"Can fraud be predicted from a company's financial statements before it is discovered?",
+      question:"Can patterns in a company's financial statements predict fraud before anyone discovers it?",
+      background:"Researchers have built models that look for warning signs in financial statements, such as revenue growing much faster than cash, or a sudden rise in money owed by customers, to flag companies that may be manipulating their numbers. Data analytics and AI now promise to do this in real time. Critics note that these models produce many false alarms, and that fraudsters can learn what the models look for.",
+      positionA:"Yes. The numbers leave clues that careful analysis can find.",
+      positionB:"Only partly. Clever fraud is designed to look normal." },
     { original:"Do whistleblower bounties uncover fraud, or encourage opportunistic tips?",
       question:"Do cash rewards for reporting fraud uncover real wrongdoing, or mainly attract opportunistic tips?",
       background:"Since 2011, the U.S. Securities and Exchange Commission (SEC) has paid whistleblowers 10% to 30% of the penalties it collects, when those penalties exceed $1 million, as a result of their tips. It has paid out more than $2 billion. Supporters say insiders take huge career risks and deserve compensation. Critics worry that the rewards encourage people to skip their company's internal reporting channels or to file weak claims.",
@@ -317,11 +318,11 @@ const FIELDS = [
       background:"The “fraud triangle,” based on criminologist Donald Cressey's research in the 1950s, says fraud happens when three things combine: pressure (such as debt or demanding targets), opportunity (such as weak controls), and rationalization (“I'll pay it back”). Critics say it focuses on individual employees and misses organized schemes, the personal capabilities of powerful executives, and corporate cultures in which fraud becomes normal.",
       positionA:"Still adequate. The three factors explain most fraud cases.",
       positionB:"Outdated. It misses group fraud, corporate culture, and powerful executives." },
-    { original:"Does crypto make financial crime easier to hide, or easier to trace?",
-      question:"Does cryptocurrency make financial crime easier to hide, or easier to trace?",
-      background:"Cryptocurrency lets people send money without going through a bank, which makes it attractive for ransomware payments and money laundering. But most cryptocurrencies, including Bitcoin, record every transaction on a public ledger called a blockchain. Investigators using “blockchain analytics” have followed and recovered funds, including much of the ransom paid in the 2021 Colonial Pipeline cyberattack.",
-      positionA:"Easier to hide. No bank is watching, and money crosses borders instantly.",
-      positionB:"Easier to trace. Every transaction is permanently recorded in public." }
+    { original:"Who uncovers corporate fraud: auditors and regulators, or outsiders like employees, journalists, and short sellers?",
+      question:"Who actually uncovers corporate fraud: auditors and regulators, or outsiders like employees, journalists, and short sellers?",
+      background:"We usually expect auditors and government regulators to catch fraud. But studies of major fraud cases have found that many are first exposed by others: employees, journalists, and short sellers, investors who profit when a stock falls. Enron, for example, drew early skepticism from short sellers and a 2001 Fortune article asking whether its stock was overpriced. This raises the question of whether the official watchdogs are doing their job.",
+      positionA:"The official watchdogs. Auditors and regulators have the access and the authority.",
+      positionB:"Outsiders. Insiders and skeptics often see the problem first." }
     ]}
   ]},
 
@@ -330,13 +331,13 @@ const FIELDS = [
   subfields:[
   { id:"eco-lb", name:"Labor Economics",
     about:"How labor markets work: wages, employment, and working conditions, and how policies and technology affect workers.",
-    terms:["labor economics","minimum wage","monopsony","gig economy","independent contractor classification","noncompete agreements","immigration and wages","automation and employment","Card and Krueger"],
+    terms:["labor economics","minimum wage","monopsony","gig economy","independent contractor classification","noncompete agreements","immigration and wages","automation and employment","technological change and jobs","Card and Krueger"],
     questions:[
-    { original:"Will AI replace workers or make them more productive?",
-      question:"Will artificial intelligence replace workers, or make them more productive?",
-      background:"Earlier technologies, such as tractors and computers, eliminated some jobs but created others, and wages rose over time. Some economists argue AI is different because it can perform mental tasks, like writing and analysis, that used to be safe from automation. Early studies find that AI tools raise productivity most for less-experienced workers, but the long-run effects on employment are still unknown.",
-      positionA:"Replace them. AI can do enough tasks that many jobs will disappear.",
-      positionB:"Make them more productive. AI will change jobs more than it eliminates them." },
+    { original:"Does new technology replace workers, or make them more productive?",
+      question:"Does new technology, from factory robots to artificial intelligence, replace workers or make them more productive?",
+      background:"Fears that machines will destroy jobs go back at least to the Luddites of the early 1800s. Over the long run, technology has raised productivity and wages while creating new kinds of jobs. But research on computers and industrial robots finds that technology can also eliminate certain tasks and hurt the workers who did them. Artificial intelligence has revived the debate.",
+      positionA:"Replace. Technology eliminates jobs faster than it creates good new ones.",
+      positionB:"More productive. Technology changes jobs and raises wages over time." },
     { original:"Do minimum wage increases cost jobs, or does the evidence say the effects are small?",
       question:"Do minimum wage increases cost jobs, or are the effects on employment small?",
       background:"Basic supply-and-demand reasoning predicts that if labor costs more, employers will hire fewer workers. But a famous 1994 study by David Card and Alan Krueger compared fast-food restaurants in New Jersey, which raised its minimum wage, with those in neighboring Pennsylvania, which didn't, and found no job losses. Research since then has been mixed: moderate increases seem to have small effects, while the effects of large increases are still debated.",
@@ -360,7 +361,7 @@ const FIELDS = [
     ]},
   { id:"eco-mm", name:"Monetary Policy and Macroeconomics",
     about:"How the economy as a whole behaves, including inflation, unemployment, growth, and interest rates, and how central banks and governments try to manage it.",
-    terms:["Federal Reserve","dual mandate","central bank independence","inflation","quantitative easing","government debt","interest rate vs. growth rate (r < g)","monetary policy","fiscal policy"],
+    terms:["Federal Reserve","dual mandate","central bank independence","inflation","demand-pull vs. cost-push inflation","supply shocks","quantitative easing","government debt","monetary policy","fiscal policy"],
     questions:[
     { original:"Should central banks target only inflation, or also employment, financial stability, or climate?",
       question:"Should central banks focus only on controlling inflation, or also on jobs, financial stability, and climate change?",
@@ -372,11 +373,11 @@ const FIELDS = [
       background:"Politicians may want low interest rates before an election to boost the economy, even if that causes inflation later. That is why most central banks are designed to be independent of elected officials. Evidence from the U.S. in the 1970s and from countries like Turkey more recently suggests political pressure leads to higher inflation. But critics ask why unelected officials should make decisions with such large effects on jobs and wealth.",
       positionA:"Fully independent. Politics and money creation don't mix.",
       positionB:"More accountable. Decisions this important should answer to voters." },
-    { original:"Was post-pandemic inflation mainly a demand story or a supply story?",
-      question:"Was the high inflation after COVID mainly caused by too much spending, or by problems producing and shipping goods?",
-      background:"U.S. inflation reached 9.1% in June 2022, the highest in four decades. One explanation focuses on demand: stimulus payments and low interest rates gave people more money to spend than the economy could produce goods for. Another focuses on supply: factory shutdowns, shipping backlogs, and Russia's invasion of Ukraine raised the cost of goods and energy. Most economists think both mattered; the debate is about the balance.",
-      positionA:"Demand. Too much money was chasing too few goods.",
-      positionB:"Supply. Disrupted production and energy shocks drove prices up." },
+    { original:"Is inflation driven mainly by too much demand, or by supply shocks?",
+      question:"Is inflation caused mainly by too much spending in the economy, or by disruptions to supply?",
+      background:"Prices can rise because people and governments want to buy more than the economy can produce, or because supply is disrupted, as when oil prices jumped in the 1970s. The answer matters: central banks can cool demand by raising interest rates, but they can't produce more oil or unblock shipping. Economists argued over this again when inflation surged after the COVID-19 pandemic.",
+      positionA:"Too much demand. Inflation happens when spending outruns what the economy can produce.",
+      positionB:"Supply shocks. Disruptions to supply drive the biggest price jumps." },
     { original:"Does quantitative easing work, and is unwinding it risky?",
       question:"Does it work when central banks create money to buy bonds, and is it risky to reverse?",
       background:"When interest rates are already near zero, central banks can still try to stimulate the economy through “quantitative easing” (QE): creating money to buy government bonds and other assets, which lowers long-term interest rates. The Federal Reserve's holdings grew from under $1 trillion in 2008 to nearly $9 trillion in 2022. Critics argue QE inflated the prices of stocks and homes, which mostly benefits the wealthy, and that shrinking those holdings could disrupt markets.",
@@ -390,18 +391,18 @@ const FIELDS = [
     ]},
   { id:"eco-tr", name:"International Trade",
     about:"Why countries trade, who wins and loses from trade, and how tariffs, sanctions, and government support for industries shape the global economy.",
-    terms:["international trade","tariffs","comparative advantage","China shock","reshoring","friend-shoring","industrial policy","CHIPS and Science Act","economic sanctions"],
+    terms:["international trade","tariffs","comparative advantage","trade liberalization","trade and economic growth","China shock","industrial policy","CHIPS and Science Act","economic sanctions"],
     questions:[
     { original:"Do tariffs protect domestic industries or mainly raise prices for consumers?",
       question:"Do tariffs protect domestic industries, or mainly raise prices for consumers?",
       background:"A tariff is a tax on imported goods. It makes foreign products more expensive, which can help domestic producers compete. Studies of the 2018–2019 U.S. tariffs on Chinese goods found that most of the cost was passed on to U.S. buyers. Since 2025, the U.S. has raised tariffs far more broadly. Supporters argue they will bring manufacturing back and strengthen the country's bargaining position.",
       positionA:"They protect industry. Tariffs keep jobs and production at home.",
       positionB:"They raise prices. Consumers and businesses that buy imports pay the cost." },
-    { original:"Is reshoring or “friend-shoring” worth the efficiency cost?",
-      question:"Is moving production back home, or to friendly countries, worth the higher cost?",
-      background:"For decades, companies moved production to wherever it was cheapest, often China. “Reshoring” brings production back home; “friend-shoring” moves it to allied countries. The COVID pandemic and tensions with China exposed the risks of depending on one country for medicines, computer chips, and other critical goods. But producing in higher-cost countries means higher prices.",
-      positionA:"Worth it. Security and reliability are worth paying for.",
-      positionB:"Not worth it. Consumers pay the cost, and supply can be spread out without it." },
+    { original:"Does opening up to trade make countries richer?",
+      question:"Does opening its economy to international trade make a country richer?",
+      background:"Since Adam Smith and David Ricardo, economists have argued that trade lets each country specialize in what it does best, making countries better off on average. Countries that opened up, such as South Korea, often grew quickly. But it is hard to prove trade caused the growth rather than other policies, and the gains are often unevenly shared. Recent pushes to bring production home (“reshoring”) revive the question.",
+      positionA:"Yes. Trade is one of the surest paths to growth.",
+      positionB:"Not by itself. Other policies matter more, and trade's gains are uneven." },
     { original:"Did trade with China (the “China shock”) do more harm to U.S. workers than economists expected?",
       question:"Did trade with China hurt American workers more than economists expected?",
       background:"Economists long argued that free trade benefits nations overall, and that workers who lose jobs to imports would find new ones. But research by David Autor, David Dorn, and Gordon Hanson, known as the “China shock” studies, found that U.S. communities exposed to Chinese import competition after 2001 suffered lasting job losses, lower wages, and social problems for more than a decade. Other researchers note that consumers gained from cheaper goods and that automation also eliminated manufacturing jobs.",
@@ -450,7 +451,7 @@ const FIELDS = [
     ]},
   { id:"eco-io", name:"Industrial Organization",
     about:"How industries are structured, including how many firms compete and how they set prices, and when the government should step in to protect competition, an area of law known as antitrust.",
-    terms:["industrial organization","antitrust","market power","network effects","consumer welfare standard","merger review","algorithmic pricing","tacit collusion","self-preferencing","Digital Markets Act"],
+    terms:["industrial organization","antitrust","market power","network effects","consumer welfare standard","merger review","tacit collusion","oligopoly pricing","algorithmic pricing","self-preferencing"],
     questions:[
     { original:"Are big tech platforms a natural result of competition, or a competition problem?",
       question:"Did big technology companies grow by beating competitors fairly, or is their size itself a problem for competition?",
@@ -467,11 +468,11 @@ const FIELDS = [
       background:"Merging companies usually promise “synergies,” meaning lower costs from combining their operations. But fewer competitors can also mean higher prices. Studies of hospital and airline mergers often find that prices rose afterward. Other studies find that many mergers fail to deliver the promised savings at all, in which case the companies' own shareholders lose too.",
       positionA:"More efficient. Mergers often reduce costs and improve products.",
       positionB:"Less competition. The main result is usually higher prices." },
-    { original:"Is algorithmic pricing a route to tacit collusion?",
-      question:"Can pricing software let competing companies keep prices high without ever talking to each other?",
-      background:"Many companies now set prices with software. If competing landlords all use the same pricing software, it may recommend similarly high rents to all of them. In 2024 the U.S. Justice Department sued RealPage, a rent-pricing software company, over exactly this concern. Explicit agreements to fix prices are illegal, but the law is unclear when the coordination happens through shared software rather than an agreement.",
-      positionA:"Yes. Shared algorithms can produce price-fixing without any agreement.",
-      positionB:"Overstated. Algorithms also help companies undercut each other faster." },
+    { original:"Can companies keep prices high without ever agreeing to, and should that be illegal?",
+      question:"Can competing companies keep prices high without ever explicitly agreeing to, and should that be illegal?",
+      background:"Price-fixing agreements are illegal. But in markets with only a few sellers, companies may learn to match each other's prices and avoid price wars without ever talking, which economists call “tacit collusion.” It is usually legal. Pricing software has renewed the debate, since algorithms that watch rivals' prices could learn to keep prices high on their own.",
+      positionA:"Yes, and regulators should police it, even without an agreement.",
+      positionB:"It's just competition. Matching a rival's price isn't a crime." },
     { original:"Should platforms be allowed to compete against the sellers who use them?",
       question:"Should a platform like Amazon be allowed to sell its own products in competition with the independent sellers who use its platform?",
       background:"Amazon runs a marketplace where independent sellers list products, and it also sells its own products, such as the Amazon Basics line. Critics argue Amazon can use sellers' sales data to copy successful products and then rank its own versions higher. The European Union's Digital Markets Act restricts this kind of “self-preferencing.” Defenders note that store brands are common: supermarkets sell their own brands next to name brands.",
@@ -545,13 +546,13 @@ const FIELDS = [
     ]},
   { id:"fin-bk", name:"Banking and Financial Institutions",
     about:"How banks and other financial institutions work, why they sometimes fail, and how regulation tries to keep the financial system safe.",
-    terms:["bank regulation","capital requirements","Basel III","too big to fail","Dodd-Frank Act","private credit","shadow banking","Silicon Valley Bank failure","central bank digital currency (CBDC)"],
+    terms:["bank regulation","capital requirements","Basel III","too big to fail","Dodd-Frank Act","shadow banking","bank runs","deposit insurance","Diamond and Dybvig","Glass-Steagall Act"],
     questions:[
-    { original:"Is risk moving out of regulated banks into private credit and other less-regulated areas?",
-      question:"Is risk moving out of closely regulated banks and into less-regulated lenders?",
-      background:"After the 2008 financial crisis, banks faced stricter rules. Since then, lending has grown rapidly elsewhere, especially “private credit,” in which investment funds lend directly to companies. Private credit has grown to roughly $1.5–2 trillion worldwide. Supporters say it moves risk to investors who chose to take it, instead of to bank depositors. Regulators worry that it is hard to see into and could cause problems in a downturn.",
-      positionA:"Yes, and it's a growing danger that regulators can't see clearly.",
-      positionB:"It's a healthy shift. Risk now sits with investors who chose to take it." },
+    { original:"When bank regulation tightens, does risk simply move to “shadow banks”?",
+      question:"When the rules for banks get stricter, does risky lending simply move to less-regulated lenders?",
+      background:"“Shadow banks” are firms that act like banks, borrowing money and lending it out, without being regulated as banks. Examples include money market funds, finance companies, and private credit funds. They played a major role in the 2008 financial crisis. Researchers debate whether stricter bank rules make the financial system safer, or just push risk somewhere regulators can see less of it.",
+      positionA:"Risk moves. Stricter rules push lending into the shadows.",
+      positionB:"The system is safer. Banks are the core, and that's where rules matter most." },
     { original:"Are banks still “too big to fail”?",
       question:"Are the largest banks still “too big to fail”?",
       background:"In 2008, governments rescued major banks because letting them fail could have brought down the whole financial system. This is the “too big to fail” problem: if banks expect to be rescued, they may take bigger risks. The 2010 Dodd-Frank Act required banks to hold more of their own money and to prepare “living wills,” plans for an orderly failure. In 2023, regulators arranged for JPMorgan Chase, already the largest U.S. bank, to buy the failed First Republic Bank.",
@@ -562,31 +563,31 @@ const FIELDS = [
       background:"A bank's “capital” is its own money, mainly from shareholders, as opposed to deposits and borrowed money. More capital means a bank can absorb larger losses without failing. Banks argue that requiring more capital makes lending more expensive and reduces credit for businesses and households. Economists such as Anat Admati argue that much higher capital levels would cost the economy very little.",
       positionA:"Safer. More capital is the best protection against crises.",
       positionB:"Less lending. High requirements push credit away from the economy." },
-    { original:"Did the 2023 regional bank failures show a failure of regulation or of management?",
-      question:"Were the 2023 bank failures, including Silicon Valley Bank, mainly the fault of regulators or of the banks' own managers?",
-      background:"In March 2023, Silicon Valley Bank failed after customers tried to withdraw $42 billion in a single day. The bank had invested heavily in long-term bonds that lost value when interest rates rose, and most of its deposits were above the $250,000 limit covered by government insurance. Its managers ignored the risk from rising rates. But the Federal Reserve's own review found that its supervisors had identified problems and didn't act forcefully, and some rules had been loosened in 2018.",
-      positionA:"Regulators. Supervisors saw the problems and failed to act.",
-      positionB:"Management. The bank took obvious risks and ignored warnings." },
-    { original:"Should central banks issue digital currencies, and what would that mean for banks?",
-      question:"Should central banks issue their own digital currencies, and what would that mean for banks?",
-      background:"A “central bank digital currency” (CBDC) would be digital money issued directly by a central bank, something like digital cash. China has tested a digital yuan, and the European Central Bank is preparing a digital euro. Supporters point to faster, cheaper payments. Critics raise privacy concerns and worry that in a crisis people would pull their money out of banks and into the CBDC. A 2025 U.S. executive order prohibited federal agencies from creating one.",
-      positionA:"Issue them. Public digital money would be safer and more efficient.",
-      positionB:"Don't. They threaten privacy and could drain deposits from banks." }
+    { original:"What causes bank runs, and can deposit insurance prevent them?",
+      question:"Why do bank runs happen, and can government deposit insurance prevent them?",
+      background:"Banks take deposits that customers can withdraw at any time and lend that money out for years. If depositors fear a bank is in trouble and all rush to withdraw at once, even a healthy bank can fail. In the U.S., classic bank runs became rare after the FDIC was created in 1933; it now insures deposits up to $250,000. But in 2023, depositors pulled more than $40 billion from Silicon Valley Bank, where most deposits were uninsured, in a single day.",
+      positionA:"Insurance works. Insured depositors have no reason to run.",
+      positionB:"Runs still happen. Large deposits aren't covered, and insurance can encourage risk-taking." },
+    { original:"Should banks be allowed to combine everyday lending with risky investment banking?",
+      question:"Should the same bank be allowed to take everyday deposits and also do risky investment banking?",
+      background:"After the Great Depression, the Glass-Steagall Act of 1933 separated commercial banks, which take deposits and make loans, from investment banks, which trade securities. Congress repealed much of that separation in 1999. After the 2008 crisis, some argued it should come back. Others noted that several of the firms that failed in 2008, such as Lehman Brothers, were investment banks that took no ordinary deposits.",
+      positionA:"Separate them. Customer deposits shouldn't fund risky bets.",
+      positionB:"Allow both. Combined banks are more diversified, and separation wouldn't have stopped 2008." }
     ]},
   { id:"fin-bf", name:"Behavioral Finance",
     about:"How psychology affects investors' decisions and market prices, and whether investors need protection from their own mistakes.",
-    terms:["behavioral finance","overconfidence bias","meme stocks","GameStop short squeeze","retail investors","gamification of trading","overreaction and underreaction","investor protection","Barber and Odean"],
+    terms:["behavioral finance","investor sentiment","noise traders","limits to arbitrage","lottery stocks","overconfidence bias","retail investors","overreaction and underreaction","investor protection","Barber and Odean"],
     questions:[
-    { original:"Do retail-trading apps democratize investing, or encourage gambling?",
-      question:"Do free stock-trading apps open investing up to everyone, or encourage gambling?",
-      background:"Apps like Robinhood made trading free and easy from a phone, attracting millions of young investors. Critics say features like confetti animations and frequent notifications turn trading into a game, and options trading, a form of high-risk bet, grew quickly among new investors. In 2024, Robinhood paid $7.5 million to settle Massachusetts charges that it had “gamified” investing. Supporters say ordinary people now have access that used to be limited to the wealthy.",
-      positionA:"Open it up. Anyone can now build wealth in the market.",
-      positionB:"Encourage gambling. The design rewards frequent, risky trading." },
-    { original:"Are meme-stock episodes irrational bubbles or a new form of coordination?",
-      question:"Were “meme stock” episodes like GameStop irrational bubbles, or a new way for investors to act together?",
-      background:"In January 2021, individual investors organizing on the Reddit forum r/wallstreetbets bought shares of GameStop, a struggling video-game retailer. Its stock rose from under $20 to over $400 within weeks, causing large losses for hedge funds that had bet the price would fall. Some see a bubble driven by hype. Others see ordinary investors coordinating to take on large institutions.",
-      positionA:"Irrational bubbles. The prices had nothing to do with the company's value.",
-      positionB:"A new way to act together. Small investors used social media to act as a group." },
+    { original:"Do some investors treat the stock market like a casino?",
+      question:"Do some investors treat the stock market like gambling, and does it hurt them?",
+      background:"Some investors are drawn to stocks that behave like lottery tickets: cheap, volatile shares with a small chance of a huge payoff. Research finds that investors who favor these stocks tend to earn lower returns, and that this kind of trading is more common in places where lotteries are popular. Commission-free trading apps, with their game-like features, have renewed the concern.",
+      positionA:"Yes. Many investors are gambling, and they pay for it.",
+      positionB:"Not really. Taking a few long shots can be a reasonable choice." },
+    { original:"Can investor sentiment push stock prices away from their true value?",
+      question:"Can waves of investor excitement or fear push stock prices far from what companies are actually worth?",
+      background:"Traditional finance argues that if prices drift from a company's true value, professional investors will trade against the mistake and correct it. Behavioral finance argues that “sentiment,” waves of excitement or fear, can push prices away from value for long periods, and that betting against the crowd is risky. The dot-com bubble of the late 1990s and the 2021 GameStop “meme stock” episode are often cited examples.",
+      positionA:"Yes. Sentiment can move prices for a long time.",
+      positionB:"Only briefly. Professional investors correct mispricing." },
     { original:"Do investors systematically overreact or underreact to news?",
       question:"Do investors tend to overreact to news, or underreact to it?",
       background:"If investors overreact, stocks that drop sharply on bad news should later partly recover. Research by Werner De Bondt and Richard Thaler found that stocks that had done worst over several years went on to beat those that had done best. But other research finds underreaction: after a company reports surprising earnings, its stock price keeps drifting in the same direction for weeks. Both patterns may appear under different circumstances.",
@@ -605,13 +606,13 @@ const FIELDS = [
     ]},
   { id:"fin-ft", name:"Fintech and Digital Assets",
     about:"How new technology, including apps, algorithms, and blockchains, is changing payments, lending, and investing, and how regulators should respond.",
-    terms:["fintech","stablecoins","GENIUS Act","cryptocurrency valuation","decentralized finance (DeFi)","smart contracts","algorithmic lending","fair lending","tokenization of real-world assets"],
+    terms:["financial innovation","fintech","cryptocurrency valuation","Bitcoin","algorithmic lending","fair lending","mobile money","financial inclusion","crowdfunding","peer-to-peer lending"],
     questions:[
-    { original:"Are stablecoins a real payments innovation or a new source of instability?",
-      question:"Are stablecoins a real improvement in how payments work, or a new source of financial instability?",
-      background:"A “stablecoin” is a cryptocurrency designed to hold a steady value, usually $1, by keeping reserves such as cash and short-term government bonds. Stablecoins allow fast, low-cost transfers worldwide at any hour. But if holders doubt the reserves, they may all rush to cash out, much like a run on a bank. TerraUSD, a stablecoin without real reserves, collapsed in 2022, wiping out tens of billions of dollars. The U.S. GENIUS Act of 2025 created the first federal rules for stablecoins.",
-      positionA:"A real improvement. Payments become faster and cheaper for everyone.",
-      positionB:"A new instability. Stablecoins can suffer runs just like unregulated banks." },
+    { original:"Does financial innovation make the financial system more efficient, or more fragile?",
+      question:"Do new financial products and technologies make the financial system work better, or make it more fragile?",
+      background:"Financial innovations, from credit cards and index funds to mortgage-backed securities and cryptocurrency, often promise cheaper, faster, or more widely available finance. Many delivered. But innovations can also hide risks that people don't understand until a crisis, as complex mortgage securities did in 2008. Stablecoins and other crypto products are the latest test of this debate.",
+      positionA:"More efficient. Innovation lowers costs and widens access.",
+      positionB:"More fragile. New products often hide risks until it's too late." },
     { original:"Does crypto have fundamental value, or only speculative value?",
       question:"Does cryptocurrency have real underlying value, or is it worth only what the next buyer will pay?",
       background:"A stock has value because it represents a share of a company's future profits, and a bond pays interest. Bitcoin pays neither. Supporters argue its value comes from its fixed supply (there will only ever be 21 million bitcoins), its independence from governments, and its usefulness for transfers, making it a kind of “digital gold.” Skeptics argue its price depends only on people expecting others to buy it later.",
@@ -622,16 +623,16 @@ const FIELDS = [
       background:"Fintech lenders use algorithms and nontraditional data, such as rent payments or education, to decide who gets loans. This can help people with little credit history. A 2022 study of U.S. mortgages found that algorithmic lenders charged Black and Latino borrowers less extra interest than face-to-face lenders did, but did not eliminate the gap. Critics warn that algorithms can learn discrimination from historical data even without being told anyone's race.",
       positionA:"More access. Algorithms can judge people more fairly than human loan officers.",
       positionB:"Reproduced discrimination. Algorithms learn the biases built into past data." },
-    { original:"Should DeFi be regulated like banks or left alone?",
-      question:"Should financial services run by software on blockchains be regulated like banks, or left alone?",
-      background:"“Decentralized finance” (DeFi) uses programs on blockchains, called “smart contracts,” to offer lending, trading, and other services without a bank or company in the middle. Supporters say it is open to anyone and cuts out middlemen. But hacks and scams have cost users billions of dollars, and often there is no one to hold responsible. Regulating it is difficult when there is no company to regulate.",
-      positionA:"Regulate it like banks. The same activity should face the same rules.",
-      positionB:"Leave it alone. Heavy rules would kill an innovation that doesn't fit the old model." },
-    { original:"Will tokenizing real-world assets transform markets or remain marginal?",
-      question:"Will recording ownership of real assets, like buildings, bonds, or art, on blockchains transform markets?",
-      background:"“Tokenization” means representing ownership of an asset as a digital token on a blockchain. This could let people buy small fractions of expensive assets and trade them instantly at any hour, instead of waiting days for a trade to settle. BlackRock, the world's largest asset manager, launched a tokenized fund in 2024. Skeptics note that existing systems already work, and that legal ownership still depends on courts and official records, not tokens.",
-      positionA:"Transform them. Markets will become faster, cheaper, and more accessible.",
-      positionB:"Remain marginal. It solves problems existing systems already handle." }
+    { original:"Do mobile and digital payments bring financial services to people banks don't serve?",
+      question:"Do mobile phone payments and digital banking bring financial services to people that banks have left out?",
+      background:"Hundreds of millions of adults worldwide have no bank account. In Kenya, the mobile money service M-Pesa, launched in 2007, let people send and save money by text message, and research linked it to reduced poverty. Millions of U.S. households are also “unbanked.” Critics note that digital services can bring new fees, fraud, and privacy risks to the same vulnerable users.",
+      positionA:"Yes. Digital payments reach people banks never served.",
+      positionB:"Only partly. Access alone doesn't fix fees, fraud, and low incomes." },
+    { original:"Does crowdfunding give good ideas a chance banks would miss, or attract the riskiest projects?",
+      question:"Do crowdfunding and online lending platforms fund good ideas that banks overlook, or mostly attract risky projects banks rightly turned down?",
+      background:"Platforms like Kickstarter and peer-to-peer lending sites let ordinary people fund projects, businesses, and borrowers directly. Supporters say they give a chance to entrepreneurs that banks and venture capitalists overlook. Skeptics point to a “lemons” problem: if banks have already turned a project down, the people who go online for money may be the riskiest.",
+      positionA:"Good ideas. The crowd spots opportunities banks miss.",
+      positionB:"Risky projects. The best borrowers already get bank loans." }
     ]}
   ]},
 
@@ -670,7 +671,7 @@ const FIELDS = [
     ]},
   { id:"mgt-ob", name:"Organizational Behavior and Human Resources",
     about:"How people behave at work, including motivation, teamwork, culture, and leadership, and how organizations hire, pay, and manage their employees.",
-    terms:["organizational behavior","human resource management","remote and hybrid work","diversity, equity, and inclusion (DEI)","employee monitoring","pay transparency laws","four-day workweek","organizational culture"],
+    terms:["organizational behavior","human resource management","remote and hybrid work","diversity, equity, and inclusion (DEI)","employee monitoring","pay transparency","working hours and productivity","organizational culture"],
     questions:[
     { original:"Does remote and hybrid work help or hurt performance and culture?",
       question:"Does remote and hybrid work help or hurt performance and workplace culture?",
@@ -692,15 +693,15 @@ const FIELDS = [
       background:"States including Colorado, California, and New York now require employers to list salary ranges in job postings. Supporters argue that secrecy about pay lets gaps, including gaps by gender and race, continue. Research finds that transparency does narrow gaps, but sometimes because higher earners' pay grows more slowly rather than because lower earners catch up, and that it can cause resentment among coworkers.",
       positionA:"It reduces gaps. You can't fix what you can't see.",
       positionB:"It creates conflict. Knowing coworkers' pay breeds resentment and slows raises." },
-    { original:"Are four-day workweeks sustainable?",
-      question:"Can companies keep a four-day workweek without losing productivity?",
-      background:"In 2022, 61 U.K. companies tested a four-day week with no cut in pay. Most kept the schedule after the trial ended, reporting similar revenue and less burnout among employees. Critics note that the companies volunteered for the trial, so they likely expected it to work, and that the approach is harder to apply in jobs like nursing or retail, where someone has to be present.",
-      positionA:"Sustainable. Rested people get the same work done in less time.",
-      positionB:"Not broadly sustainable. It works in some offices but not in most jobs." }
+    { original:"Do long working hours raise productivity, or would shorter weeks work just as well?",
+      question:"Do employees get more done by working longer hours, or would shorter workweeks work just as well?",
+      background:"The 40-hour, five-day week became standard in the U.S. in the 20th century. Research going back to British munitions factories in World War I suggests that output per hour falls sharply when people work very long hours, because fatigue causes mistakes. Recent trials of four-day workweeks have reported good results, but critics note that the companies that volunteered may not be typical.",
+      positionA:"Shorter weeks. Rested workers get as much done in less time.",
+      positionB:"Longer hours. Some work simply requires more time." }
     ]},
   { id:"mgt-en", name:"Entrepreneurship",
     about:"How new businesses are started, funded, and grown, and why some founders succeed while others don't.",
-    terms:["entrepreneurship","lean startup","minimum viable product","business planning","venture capital","startup funding","founder bias in venture capital","barriers to entry"],
+    terms:["entrepreneurship","lean startup","minimum viable product","business planning","venture capital","startup funding","founder bias in venture capital","entrepreneurial clusters","regional advantage"],
     questions:[
     { original:"Do startups succeed more through planning or through fast experimentation?",
       question:"Do startups succeed more through careful planning, or through fast experimentation?",
@@ -717,11 +718,11 @@ const FIELDS = [
       background:"Some research comparing twins suggests that genetics partly influence whether people become entrepreneurs. Other studies emphasize family background, access to money, education, and social connections; for example, children from high-income families are far more likely to become inventors. Entrepreneurship courses and programs assume the necessary skills can be taught.",
       positionA:"Born. Personality traits like comfort with risk matter most.",
       positionB:"Made. Skills, opportunities, and resources matter most." },
-    { original:"Does AI lower the barrier to starting a business, or make it easier to copy?",
-      question:"Does artificial intelligence make it easier to start a business, or easier for others to copy yours?",
-      background:"AI tools can now write code, design logos, draft marketing copy, and answer customer questions, so one person can do work that once required a team. That lowers the cost of starting a business. But it also lowers the cost for competitors to copy a product, which could make it harder to build a business that lasts.",
-      positionA:"Easier to start. AI puts powerful tools in every founder's hands.",
-      positionB:"Easier to copy. When everyone can build quickly, nothing stays unique." },
+    { original:"Do startups succeed more in clusters like Silicon Valley?",
+      question:"Do startups succeed more when they're located in clusters like Silicon Valley, or can they thrive anywhere?",
+      background:"Many industries cluster in particular places: technology in Silicon Valley, finance in New York, film in Los Angeles. Researchers argue clusters help firms share skilled workers, suppliers, investors, and ideas. But clusters are expensive places to operate, and remote work and online tools may make location matter less than it used to.",
+      positionA:"Clusters. Being near talent, investors, and ideas matters.",
+      positionB:"Anywhere. Location matters less in a connected world." },
     { original:"Why do founders with similar ideas get such different funding outcomes, and how much of that is bias?",
       question:"Why do founders with similar ideas get very different amounts of funding, and how much of that is bias?",
       background:"In recent years, startups founded only by women have received only about 2% of U.S. venture capital. Research by Dana Kanze and colleagues found that investors tended to ask male founders about potential gains and female founders about potential losses, and that founders who got more loss-focused questions raised less money. Others argue that differences in funding mostly reflect differences in industry, experience, and connections.",
@@ -730,18 +731,18 @@ const FIELDS = [
     ]},
   { id:"mgt-op", name:"Operations and Supply Chain",
     about:"How companies produce goods and services and get them to customers, from factories and warehouses to global networks of suppliers.",
-    terms:["operations management","supply chain management","lean manufacturing","just-in-time production","supply chain resilience","reshoring","warehouse automation","supplier diversification","forced labor in supply chains"],
+    terms:["operations management","supply chain management","lean manufacturing","just-in-time production","supply chain resilience","Total Quality Management (TQM)","Six Sigma","automation and jobs","supplier diversification","forced labor in supply chains"],
     questions:[
     { original:"Should firms optimize for efficiency (lean, just-in-time) or for resilience?",
       question:"Should companies run as efficiently as possible, or keep extra inventory and backup suppliers in case something goes wrong?",
       background:"“Just-in-time” production, developed by Toyota, keeps inventory to a minimum: parts arrive exactly when they are needed. This cuts costs and waste. But when COVID disrupted supply chains, companies with no spare parts had to stop production, and carmakers lost billions in sales during the chip shortage. Being “resilient” means paying for extra inventory and backup options that may never be used.",
       positionA:"Efficiency. Extra inventory is waste that customers end up paying for.",
       positionB:"Resilience. The cost of a shutdown far outweighs the cost of a buffer." },
-    { original:"Is reshoring production economically viable?",
-      question:"Can it make economic sense for a company to move its manufacturing back to a high-wage country like the U.S.?",
-      background:"Labor costs much more in the U.S. than in China, Vietnam, or Mexico. But automation reduces how much labor costs matter, tariffs make imports more expensive, and shipping disruptions have made long supply chains riskier. Some companies are building new U.S. factories, especially for computer chips and batteries, often with government subsidies.",
-      positionA:"Yes. Automation and risk have changed the math.",
-      positionB:"No. Without subsidies, the costs are still too high." },
+    { original:"Do quality management programs, like Total Quality Management and Six Sigma, actually improve performance?",
+      question:"Do company-wide quality programs, like Total Quality Management and Six Sigma, actually improve performance?",
+      background:"Inspired by Japanese manufacturers like Toyota, many U.S. companies adopted quality management programs in the 1980s and 1990s, and General Electric famously made Six Sigma central to its strategy. Some studies found that firms that won quality awards outperformed their peers. Others found that many programs became expensive paperwork that faded away.",
+      positionA:"Yes. Disciplined quality programs pay off.",
+      positionB:"Rarely. Most become paperwork without changing results." },
     { original:"Does automation in warehouses and factories create or destroy good jobs?",
       question:"Does automation in warehouses and factories create good jobs, or eliminate them?",
       background:"Amazon now uses more than a million robots in its warehouses. Automation can eliminate repetitive work and reduce injuries, while creating new jobs maintaining and running machines. Research by Daron Acemoglu and Pascual Restrepo found that U.S. areas that adopted more industrial robots saw lower employment and wages. Other studies find that companies that automate grow and end up hiring more people.",
@@ -795,7 +796,7 @@ const FIELDS = [
   subfields:[
   { id:"mkt-cb", name:"Consumer Behavior",
     about:"How and why people buy what they buy: the psychology and social influences behind consumer choices.",
-    terms:["consumer behavior","constructed preferences","decoy effect","choice overload","attitude-behavior gap","greenwashing","online reviews","fake reviews","social commerce","impulse buying"],
+    terms:["consumer behavior","constructed preferences","decoy effect","choice overload","attitude-behavior gap","greenwashing","online reviews","fake reviews","impulse buying","self-control"],
     questions:[
     { original:"Do consumers choose rationally, or are their preferences built in the moment?",
       question:"Do consumers know what they want ahead of time, or are their preferences formed in the moment of choosing?",
@@ -817,15 +818,15 @@ const FIELDS = [
       background:"Most shoppers read reviews before buying, and research finds that higher ratings substantially increase sales. That gives sellers a strong incentive to fake reviews. In 2024 the Federal Trade Commission banned buying and selling fake reviews, including ones written by AI. Platforms remove millions of fake reviews a year, but enforcement remains difficult.",
       positionA:"Reviews matter, and fakes can be controlled with enforcement and technology.",
       positionB:"Fakes are too easy to produce, so reviews are becoming less trustworthy." },
-    { original:"Is social media shopping impulse-driven, or an efficient way to discover products?",
-      question:"Is shopping through social media driven by impulse, or is it an efficient way to discover products?",
-      background:"Platforms like TikTok Shop and Instagram let people buy products directly from videos and posts. Supporters say this shows people products they would never have found otherwise. Critics argue that endless scrolling, limited-time offers, and enthusiastic creators encourage purchases people later regret.",
-      positionA:"Impulse-driven. The design encourages buying without thinking.",
-      positionB:"Efficient discovery. People find products they actually want." }
+    { original:"Is impulse buying a failure of self-control, or the result of store and website design?",
+      question:"When people buy on impulse, is it a lapse in self-control, or are they being steered by how stores and websites are designed?",
+      background:"Many purchases are unplanned. Psychologists link impulse buying to mood and self-control. But retailers also design for it: candy at the checkout, “limited time” offers, and one-click buying. Shopping inside social media apps, where products appear in your feed and can be bought instantly, has made the question more pressing.",
+      positionA:"Self-control. People are responsible for what they buy.",
+      positionB:"Design. Stores and apps are built to trigger impulses." }
     ]},
   { id:"mkt-dm", name:"Digital Marketing and Analytics",
     about:"How companies advertise online and measure whether their marketing works, especially as privacy rules limit tracking.",
-    terms:["digital marketing","marketing analytics","marketing attribution","third-party cookies","App Tracking Transparency","GDPR","marketing mix modeling (MMM)","A/B testing","incrementality testing"],
+    terms:["digital marketing","marketing analytics","marketing attribution","advertising effectiveness","informative vs. persuasive advertising","online privacy and advertising","A/B testing","customer loyalty programs","customer relationship management (CRM)"],
     questions:[
     { original:"Can marketers still measure what works under privacy limits on tracking?",
       question:"Can marketers still measure what works now that privacy rules limit how users can be tracked?",
@@ -842,20 +843,20 @@ const FIELDS = [
       background:"“Attribution models” give credit for a sale to the ads a customer saw or clicked beforehand. But many of those customers would have bought anyway. When eBay ran an experiment that turned off its paid search ads for people searching “eBay,” sales barely changed; people simply clicked the regular search results instead. Experiments often find that ads' true effect is much smaller than attribution suggests.",
       positionA:"They work. Online ads drive measurable sales.",
       positionB:"They're overrated. Many of those sales would have happened anyway." },
-    { original:"Will AI-generated ads outperform human-made creative?",
-      question:"Will advertisements created by AI outperform those created by people?",
-      background:"AI tools can now generate ad images, video, and text in seconds, and produce thousands of versions to test against each other. Companies like Meta offer advertisers tools that automatically create and adjust ads. Supporters say AI can test more ideas, faster. Skeptics argue that the most memorable advertising depends on human insight, emotion, and cultural understanding.",
-      positionA:"AI will outperform. It can test and adapt at a scale no team can match.",
-      positionB:"People will stay ahead. The best ideas need human insight." },
-    { original:"Does marketing mix modeling (MMM) or experimentation give better answers than click-based attribution?",
-      question:"What's the best way to know whether marketing works: tracking clicks, or using statistical models and experiments?",
-      background:"Click-based attribution follows individual users from an ad to a purchase. “Marketing mix modeling” (MMM) uses statistics to estimate how total sales respond to spending across all channels, including TV, without tracking individuals. Experiments randomly show ads to some people and not others and compare the results. Each method has strengths and weaknesses, and the industry is debating which to trust.",
-      positionA:"Models and experiments. They measure what the advertising actually caused.",
-      positionB:"Click tracking. It gives fast, detailed feedback marketers can act on." }
+    { original:"Does advertising work by informing consumers, or by persuading them?",
+      question:"Does advertising mostly give people useful information, or does it persuade them to want things?",
+      background:"Economists and marketers have long disagreed about what ads do. In one view, ads give useful information, such as prices, features, and where to buy, and even an expensive ad signals that a company believes in its product. In another view, ads mainly create wants and brand loyalty, which can let companies charge more. The answer matters for whether advertising helps or hurts consumers.",
+      positionA:"Informing. Ads help people find what they need.",
+      positionB:"Persuading. Ads create wants and justify higher prices." },
+    { original:"Do customer loyalty programs actually increase profits?",
+      question:"Do loyalty programs and personalized customer marketing actually make companies more profitable?",
+      background:"Airlines, coffee chains, and retailers spend heavily on points, rewards, and personalized offers to keep customers coming back. The idea that keeping customers is cheaper than finding new ones became a core marketing belief in the 1990s. But research has found that loyal customers are not always the most profitable ones, and that many programs mainly reward people who would have bought anyway.",
+      positionA:"Yes. Loyal customers are worth the investment.",
+      positionB:"Often not. Many programs pay people for what they'd do anyway." }
     ]},
   { id:"mkt-ba", name:"Branding and Advertising",
     about:"How companies build brands, meaning the reputation and associations attached to a name, and how advertising shapes what people think and buy.",
-    terms:["brand equity","brand building","performance marketing","Binet and Field","purpose-driven marketing","brand loyalty","Byron Sharp","television advertising","brand activism"],
+    terms:["brand equity","brand building","performance marketing","Binet and Field","purpose-driven marketing","brand loyalty","Byron Sharp","country-of-origin effect","brand activism"],
     questions:[
     { original:"Does brand-building still pay off, or has performance marketing taken over?",
       question:"Does long-term brand-building still pay off, or has advertising aimed at immediate sales taken over?",
@@ -872,11 +873,11 @@ const FIELDS = [
       background:"Some evidence suggests consumers switch brands more than they used to: store brands have grown, online shopping makes comparing easy, and during the pandemic many people tried new brands when their usual ones were out of stock. But researchers such as Byron Sharp argue that brand loyalty was always weaker than marketers believed, since most buyers of any brand also buy its competitors.",
       positionA:"Declining. Consumers switch brands more easily than ever.",
       positionB:"Not really. Loyalty was always weaker than assumed, and strong brands still hold their customers." },
-    { original:"Does TV and traditional advertising still matter for younger audiences?",
-      question:"Do TV and other traditional advertising still matter for younger audiences?",
-      background:"Younger people watch far less traditional television, spending more time on YouTube, TikTok, and streaming services. Advertising budgets have shifted heavily toward digital. Yet live sports still draw large young audiences, and research suggests TV ads remain effective at building brands because they reach many people at once on a large screen.",
-      positionA:"Still matters. Big-screen, shared moments still reach young people.",
-      positionB:"No longer matters. Young audiences are found online." },
+    { original:"Does a product's country of origin shape how consumers judge it?",
+      question:"Does knowing where a product comes from, like “Made in Germany” or “Made in China,” change how people judge its quality?",
+      background:"Researchers have studied the “country-of-origin effect” since the 1960s. Consumers often use a country's reputation as a shortcut: German cars, Swiss watches, Italian fashion. Some brands lean into their origin, while others play it down. Global supply chains complicate the idea, since many products are designed in one country and made in another.",
+      positionA:"Yes. Origin is a powerful signal of quality.",
+      positionB:"Less and less. The brand matters more than the country." },
     { original:"Should brands take public stances on social issues?",
       question:"Should brands take public positions on social and political issues?",
       background:"Some companies publicly take positions on issues such as voting rights, climate change, or immigration. Supporters argue that employees and younger customers expect companies to have values. Critics argue that companies alienate customers who disagree, and that executives shouldn't use company resources to promote their personal views. Many companies became noticeably quieter on social issues in 2024 and 2025.",
@@ -884,38 +885,38 @@ const FIELDS = [
       positionB:"No. Brands should stick to their products." }
     ]},
   { id:"mkt-in", name:"Influencer Marketing",
-    about:"How brands work with social-media creators to reach audiences, and how the creator economy works as a business.",
-    terms:["influencer marketing","micro-influencers","engagement rate","creator economy","FTC endorsement guides","sponsored content disclosure","virtual influencers","parasocial relationships"],
+    about:"How brands use word of mouth, endorsers, and social-media creators to persuade audiences, and how the creator economy works as a business.",
+    terms:["influencer marketing","word of mouth","opinion leaders","two-step flow","persuasion knowledge model","sponsorship disclosure","celebrity endorsement","match-up hypothesis","economics of superstars","long tail"],
     questions:[
-    { original:"Do influencers drive sales, or mostly awareness that's hard to measure?",
-      question:"Do influencers actually drive sales, or mostly create awareness that is hard to measure?",
-      background:"Brands now spend tens of billions of dollars a year worldwide on influencer marketing. Some campaigns use discount codes or tracked links, so their sales can be measured directly. But much of the effect, such as people learning about a brand or developing a good impression of it, is hard to connect to sales. Some brands report strong returns; others struggle to show any.",
-      positionA:"They drive sales. Trusted recommendations lead to purchases.",
-      positionB:"Mostly awareness. The effect on sales is hard to prove." },
-    { original:"Are micro-influencers more effective than celebrities?",
-      question:"Are influencers with small, dedicated followings more effective than celebrities?",
-      background:"“Micro-influencers” usually have between about 10,000 and 100,000 followers. They often get more likes and comments per follower, and their audiences may trust them more. Celebrities reach far more people, but their endorsements can feel less personal. Brands have to choose between reach and closeness.",
-      positionA:"Smaller influencers. Trust and engagement matter more than reach.",
+    { original:"Does word of mouth drive sales, or mostly echo sales that would have happened anyway?",
+      question:"When people talk about a product, online or in person, does it cause more sales, or just reflect products that were already selling?",
+      background:"Marketers have long believed word of mouth is the most powerful form of promotion, and influencer marketing is a paid version of it. But measuring its effect is hard, because popular products get talked about precisely because they are popular. Researchers have used online reviews and social media data to try to separate cause from effect.",
+      positionA:"Drives sales. People trust other people more than ads.",
+      positionB:"Mostly echo. Talk follows sales more than it causes them." },
+    { original:"Are ordinary “opinion leaders” more persuasive than celebrities?",
+      question:"Are everyday people whom others trust, like a knowledgeable friend or a small online creator, more persuasive than celebrities?",
+      background:"In the 1940s and 1950s, sociologists Paul Lazarsfeld and Elihu Katz found that people are often influenced less by mass media than by “opinion leaders” around them, an idea called the “two-step flow” of communication. Today's micro-influencers, with small but loyal followings, are a modern version. Celebrities reach far more people, but their endorsements can feel less personal.",
+      positionA:"Everyday opinion leaders. Trust matters more than reach.",
       positionB:"Celebrities. Reach and fame still sell." },
-    { original:"Do disclosure rules (“#ad”) reduce influencer effectiveness?",
-      question:"Do rules requiring influencers to label paid posts (for example, “#ad”) make those posts less effective?",
-      background:"The Federal Trade Commission requires influencers to clearly disclose when they are paid to promote a product. Some research suggests that a disclosure makes viewers recognize a post as advertising and trust it less. Other research suggests honest disclosure can increase trust in the influencer over time.",
-      positionA:"Yes. Labeling an ad as an ad weakens its persuasive power.",
-      positionB:"No. Honesty maintains trust, which helps in the long run." },
-    { original:"Will virtual and AI influencers be trusted by consumers?",
-      question:"Will consumers trust influencers who are computer-generated or created by AI?",
-      background:"Virtual influencers are computer-generated characters with social-media accounts. Lil Miquela, a virtual character created in 2016, has millions of followers and has worked with brands such as Prada and Calvin Klein. AI now makes such characters cheaper and more realistic. Brands get complete control and no risk of scandal. But some research suggests audiences trust them less than human creators.",
-      positionA:"Yes. People already form connections with fictional characters.",
-      positionB:"No. Influence depends on being a real person." },
-    { original:"Is the creator economy a sustainable career path or a winner-take-all market?",
-      question:"Is being a content creator a sustainable career, or a market where only a few people win big?",
-      background:"Millions of people post content hoping to earn a living. A small share of creators earns most of the income, while most earn little or nothing. Creators also depend on platforms that can change their algorithms or payment rules at any time. Still, platforms have added more ways to earn money, such as subscriptions and tips.",
-      positionA:"A sustainable career. More ways to earn are opening up.",
-      positionB:"Winner-take-all. A few earn most of the money while the rest struggle." }
+    { original:"Does knowing a message is paid advertising make people trust it less?",
+      question:"When people know a post or message is a paid ad, do they trust it less?",
+      background:"Researchers describe a “persuasion knowledge” effect: once people recognize an attempt to persuade them, they become more skeptical. That is one reason sponsored content is often designed to look like ordinary posts. The U.S. Federal Trade Commission requires influencers to disclose paid endorsements, for example with #ad. Research is mixed on how much disclosure actually changes people's reactions.",
+      positionA:"Yes. Labeling an ad makes people more skeptical.",
+      positionB:"Not much. People enjoy content they like, even when it's sponsored." },
+    { original:"Does a celebrity endorser need to “fit” the product to be effective?",
+      question:"Does a celebrity endorsement work only when the celebrity fits the product, like an athlete selling sports drinks?",
+      background:"The “match-up” idea in advertising research says an endorser works best when their image fits the product: an athlete for sneakers, a chef for cookware. A poor fit can confuse people or make the ad feel like a paycheck. Brands also take a risk when an endorser's reputation changes. The same questions now apply to influencers, and even to virtual, computer-generated ones.",
+      positionA:"Fit matters. The right match makes the message believable.",
+      positionB:"Fame matters more. Attention is the scarce resource." },
+    { original:"Does the internet spread attention across many creators, or concentrate it on a few superstars?",
+      question:"Does the internet give many creators a chance to earn a living, or does most of the attention and money go to a few superstars?",
+      background:"Economist Sherwin Rosen's “economics of superstars” (1981) explained why a small number of performers earn most of the money in fields like music and sports. In 2004, Chris Anderson's “long tail” argued the internet would shift attention toward many niche products and creators. Today's creator economy tests both ideas: millions of people post content, but a small share earns most of the income.",
+      positionA:"The long tail. The internet opens the market to many.",
+      positionB:"Superstars. Attention still concentrates at the top." }
     ]},
   { id:"mkt-pr", name:"Pricing and Retail",
     about:"How companies set prices and how stores and online retailers sell to consumers, and when pricing practices become unfair.",
-    terms:["dynamic pricing","personalized pricing","price discrimination","subscription economy","click-to-cancel","omnichannel retail","drip pricing","junk fees","retail media networks"],
+    terms:["dynamic pricing","personalized pricing","price discrimination","subscription economy","omnichannel retail","drip pricing","junk fees","store brands (private labels)"],
     questions:[
     { original:"Is dynamic and personalized pricing efficient or unfair?",
       question:"Are prices that change based on demand, or based on who you are, efficient or unfair?",
@@ -927,21 +928,21 @@ const FIELDS = [
       background:"Many products are now sold by subscription: software, streaming, meal kits, even features in cars. Subscriptions give companies predictable revenue and can give customers convenience and lower upfront costs. But many people pay for subscriptions they forget about or find hard to cancel. The Federal Trade Commission sued Amazon over how hard it was to cancel Prime, and Amazon agreed to a $2.5 billion settlement in 2025.",
       positionA:"More value. Convenience and lower upfront costs benefit customers.",
       positionB:"Lock-in. Companies profit from forgotten subscriptions and difficult cancellations." },
-    { original:"Will physical retail survive, and in what form?",
-      question:"Will physical stores survive, and in what form?",
-      background:"Online shopping now accounts for about 16% of U.S. retail sales, and many malls and store chains have closed. Yet most shopping still happens in physical stores, and online-first brands like Warby Parker have opened their own stores. Stores increasingly serve as showrooms, pickup points, and places for experiences.",
-      positionA:"They will thrive. People still want to see, touch, and try products.",
-      positionB:"They will shrink to a niche. Convenience will keep pulling shopping online." },
+    { original:"Does online shopping replace physical stores, or do the two help each other?",
+      question:"Does online shopping replace physical stores, or do stores and websites actually help each other?",
+      background:"As e-commerce grew, many predicted a “retail apocalypse,” and many chains did close. But some online-first brands, such as Warby Parker, later opened physical stores and found that stores and online sales support each other. Researchers study “omnichannel” retail, where customers move back and forth between apps, websites, and stores.",
+      positionA:"Replace. Physical stores will keep shrinking.",
+      positionB:"Help each other. Stores and online sales support each other." },
     { original:"Do “drip pricing” and hidden fees exploit consumers, and should they be banned?",
       question:"Do hidden fees that appear late in the checkout process take advantage of consumers, and should they be banned?",
       background:"“Drip pricing” means advertising a low price and adding mandatory fees later, such as hotel “resort fees” or service fees on concert tickets. Research finds consumers end up paying more than when the full price is shown up front. A Federal Trade Commission rule that took effect in 2025 requires the total price to be shown up front for live-event tickets and short-term lodging.",
       positionA:"Ban them. The advertised price should be the real price.",
       positionB:"Disclosure is enough. Consumers can see the fees before they pay." },
-    { original:"Do retail media networks (like Amazon's ad business) benefit shoppers or just platforms?",
-      question:"Do advertising businesses run by retailers, like the sponsored listings on Amazon, benefit shoppers or just the retailers?",
-      background:"“Retail media networks” sell advertising space on retailers' own websites and apps, such as the sponsored products at the top of Amazon search results. Amazon earned over $56 billion from advertising in 2024, and Walmart, Target, and others have followed. Retailers say the ads help shoppers discover products. Critics argue that sponsored listings push more relevant results down the page and raise costs for sellers, who pass them on through higher prices.",
-      positionA:"They benefit shoppers. Ads help people discover relevant products.",
-      positionB:"They benefit retailers. Shoppers see ads instead of the best results, and prices rise." }
+    { original:"Do store brands help shoppers, or mainly squeeze name-brand manufacturers?",
+      question:"Do store brands, like Costco's Kirkland Signature, mainly help shoppers save money, or mainly help retailers squeeze name-brand manufacturers?",
+      background:"Store brands (also called private labels) are often made by the same manufacturers as name brands and sold for less. They give shoppers cheaper options, and they give retailers higher profit margins and more bargaining power with suppliers. Researchers have studied store brands for decades. Amazon's own-brand products, sold alongside competitors on its site, have renewed the debate.",
+      positionA:"Help shoppers. Store brands mean lower prices.",
+      positionB:"Help retailers. They're mainly a tool for squeezing suppliers." }
     ]}
   ]}
 ];
@@ -1160,6 +1161,12 @@ function renderResults(){
       </div>
     </div>
 
+    <div class="actions save-row no-print">
+      <button type="button" class="btn" data-action="print">Print / Save as PDF</button>
+      <button type="button" class="btn ghost" data-action="copy">Copy my results</button>
+      <span class="small muted" id="copyMsg" role="status" aria-live="polite"></span>
+    </div>
+
     <section class="stack">
       <h3>Your field</h3>
       <p>${esc(win.field.about)}</p>
@@ -1265,6 +1272,37 @@ function render(){
 
 /* ---------- events ---------- */
 let resetTimer = null;
+
+function resultsText(){
+  const deepSubs = state.deep.map(id => SUBS[id]).filter(Boolean);
+  if (!deepSubs.length) return "";
+  const win = rank(deepSubs, subStats)[0];
+  const answered = Object.values(state.answers).filter(complete).length;
+  const qs = win.questions.map((q, k) => ({ q, k, a: state.answers[q.id] }))
+    .sort((x, y) => ((y.a ? y.a.i : 0) - (x.a ? x.a.i : 0)) || (x.k - y.k));
+  return [
+    "Faculty appointment: Professor of " + win.field.name + ", specializing in " + win.name,
+    "Based on my answers to " + answered + " questions (" + new Date().toLocaleDateString() + ")",
+    "",
+    win.name + ": " + win.about,
+    "",
+    "My research questions (most interested first):",
+    ...qs.map(({ q }, n) => (n + 1) + ". " + q.original),
+    "",
+    "Search terms: " + win.terms.join(" · ")
+  ].join("\n");
+}
+function copyResults(){
+  const text = resultsText(), msg = document.getElementById("copyMsg");
+  const done = ok => { if (msg) msg.textContent = ok ? "Copied. Paste it into your assignment." : "Couldn't copy. Use Print / Save as PDF instead."; };
+  const fallback = () => {
+    const ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", "");
+    ta.style.position = "fixed"; ta.style.left = "-9999px"; document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch (e) {} ta.remove(); done(ok);
+  };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done(true), fallback);
+  else fallback();
+}
 app.addEventListener("click", e => {
   const b = e.target.closest("[data-action]"); if (!b) return;
   const act = b.dataset.action;
@@ -1275,6 +1313,8 @@ app.addEventListener("click", e => {
   else if (act === "review"){ location.hash = "review"; }
   else if (act === "quiz"){ location.hash = "quiz"; }
   else if (act === "jump"){ const t = document.getElementById(b.dataset.target); if (t) t.scrollIntoView({ behavior:"smooth" }); }
+  else if (act === "print"){ window.print(); }
+  else if (act === "copy"){ copyResults(); }
   else if (act === "explore"){ const v = document.getElementById("explore-select").value; if (v) explore(v); }
   else if (act === "reset"){
     if (b.dataset.armed){ clearTimeout(resetTimer); state = fresh(); go("intro"); }
