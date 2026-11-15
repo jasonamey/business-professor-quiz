@@ -975,7 +975,8 @@ function load(){
     return s;
   } catch (e) { return null; }
 }
-function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+function save(){ if (SAMPLE) return; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+let SAMPLE = false;
 let state = load() || fresh();
 
 /* ---------- scoring ---------- */
@@ -1265,7 +1266,32 @@ function renderReview(){
 function isReview(){
   return location.hash === "#review" || (!location.hash && new URLSearchParams(location.search).has("review"));
 }
+function isSample(){ return location.hash === "#sample"; }
+/* A fixed, made-up result for showing students what the end of the quiz looks like. Never saved. */
+function sampleState(){
+  const s = fresh();
+  const set = (id, i, st) => { s.answers[id] = { i, s: st }; };
+  // part 1: two questions per field
+  [["acc-fr-1",2,0],["acc-ma-1",3,1],["eco-be-1",4,1],["eco-lb-1",3,-1],["fin-bf-1",5,2],["fin-ap-2",4,1],["mgt-st-1",3,0],["mgt-en-1",2,1],["mkt-cb-1",3,1],["mkt-in-2",2,0]].forEach(a => set(...a));
+  // part 2: one more question per specialty in the top two fields
+  [["fin-ap-1",4,-1],["fin-cf-1",3,1],["fin-bk-2",2,0],["fin-bf-2",5,1],["fin-ft-2",3,-2],["eco-be-3",4,2],["eco-lb-2",2,1],["eco-mm-1",2,0],["eco-tr-1",3,1],["eco-io-1",3,0]].forEach(a => set(...a));
+  // part 3: the rest of the three deep specialties
+  [["fin-bf-3",4,1],["fin-bf-4",4,2],["fin-bf-5",3,-1],["fin-ap-3",4,1],["fin-ap-4",3,0],["fin-ap-5",3,1],["eco-be-2",3,-1],["eco-be-4",4,1],["eco-be-5",3,1]].forEach(a => set(...a));
+  s.topFields = ["fin","eco"]; s.deep = ["fin-bf","fin-ap","eco-be"]; s.stage = 3; s.view = "results";
+  return s;
+}
+function renderSample(){
+  SAMPLE = true; state = sampleState(); renderResults();
+  const reset = app.querySelector('[data-action="reset"]'); if (reset) reset.remove();
+  app.querySelectorAll("#explore-select").forEach(el => { const sec = el.closest("section"); if (sec) sec.remove(); });
+  const note = document.createElement("div");
+  note.className = "panel small no-print";
+  note.innerHTML = `<strong>Sample result.</strong> This is an example of what you'll see when you finish the quiz. Your own appointment will depend on your answers. <a href="./" style="color:var(--accent);font-weight:600">Take the quiz</a>`;
+  app.insertBefore(note, app.children[1] || null);
+}
 function render(){
+  if (isSample()) return renderSample();
+  if (SAMPLE){ SAMPLE = false; state = load() || fresh(); }
   if (isReview()) return renderReview();
   ({ intro:renderIntro, quiz:renderQuiz, break:renderBreak, results:renderResults }[state.view] || renderIntro)();
 }
